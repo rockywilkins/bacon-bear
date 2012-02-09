@@ -1,0 +1,8 @@
+syntax: glob
+*.suo
+Bacon Bear/Bacon Bear/obj
+Bacon Bear/Bacon BearContent/obj
+Engine/obj
+Engine/bin
+Bacon Bear/Bacon Bear/bin
+Bacon Bear/Bacon BearContent/bin
