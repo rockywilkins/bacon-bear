@@ -1,0 +1,32 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 11.00
+# Visual Studio 2010
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Bacon Bear", "Bacon Bear\Bacon Bear\Bacon Bear.csproj", "{EEACAB83-0DDE-4531-B5A6-8596C0913747}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Bacon BearContent", "Bacon Bear\Bacon BearContent\Bacon BearContent.contentproj", "{5264852E-9124-48D7-9D8A-746C8B93EA74}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Engine", "Engine\Engine.csproj", "{E1AD2046-0C46-4208-832A-2BFD0DB97F43}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Windows Phone = Debug|Windows Phone
+		Release|Windows Phone = Release|Windows Phone
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{EEACAB83-0DDE-4531-B5A6-8596C0913747}.Debug|Windows Phone.ActiveCfg = Debug|Windows Phone
+		{EEACAB83-0DDE-4531-B5A6-8596C0913747}.Debug|Windows Phone.Build.0 = Debug|Windows Phone
+		{EEACAB83-0DDE-4531-B5A6-8596C0913747}.Debug|Windows Phone.Deploy.0 = Debug|Windows Phone
+		{EEACAB83-0DDE-4531-B5A6-8596C0913747}.Release|Windows Phone.ActiveCfg = Release|Windows Phone
+		{EEACAB83-0DDE-4531-B5A6-8596C0913747}.Release|Windows Phone.Build.0 = Release|Windows Phone
+		{EEACAB83-0DDE-4531-B5A6-8596C0913747}.Release|Windows Phone.Deploy.0 = Release|Windows Phone
+		{5264852E-9124-48D7-9D8A-746C8B93EA74}.Debug|Windows Phone.ActiveCfg = Debug|Windows Phone
+		{5264852E-9124-48D7-9D8A-746C8B93EA74}.Release|Windows Phone.ActiveCfg = Release|Windows Phone
+		{E1AD2046-0C46-4208-832A-2BFD0DB97F43}.Debug|Windows Phone.ActiveCfg = Debug|Windows Phone
+		{E1AD2046-0C46-4208-832A-2BFD0DB97F43}.Debug|Windows Phone.Build.0 = Debug|Windows Phone
+		{E1AD2046-0C46-4208-832A-2BFD0DB97F43}.Release|Windows Phone.ActiveCfg = Release|Windows Phone
+		{E1AD2046-0C46-4208-832A-2BFD0DB97F43}.Release|Windows Phone.Build.0 = Release|Windows Phone
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+EndGlobal
