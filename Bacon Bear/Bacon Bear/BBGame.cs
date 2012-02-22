@@ -9,27 +9,40 @@ using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
 using Microsoft.Xna.Framework.Input.Touch;
 using Microsoft.Xna.Framework.Media;
+using Engine;
+using BaconBear.Screens;
 
-namespace Bacon_Bear
+namespace BaconBear
 {
 	/// <summary>
 	/// This is the main type for your game
 	/// </summary>
-	public class Game1 : Microsoft.Xna.Framework.Game
+	public class BBGame : Microsoft.Xna.Framework.Game
 	{
 		GraphicsDeviceManager graphics;
-		SpriteBatch spriteBatch;
 
-		public Game1()
+		Engine.Engine engine;
+
+		public BBGame()
 		{
 			graphics = new GraphicsDeviceManager(this);
+			graphics.PreparingDeviceSettings += new EventHandler<PreparingDeviceSettingsEventArgs>(graphics_PreparingDeviceSettings);
+			graphics.SynchronizeWithVerticalRetrace = false;
+			IsFixedTimeStep = false;
+
 			Content.RootDirectory = "Content";
 
-			// Frame rate is 30 fps by default for Windows Phone.
-			TargetElapsedTime = TimeSpan.FromTicks(333333);
+			// Set frame rate to 60fps
+			TargetElapsedTime = TimeSpan.FromTicks(166666);
 
 			// Extend battery life under lock.
 			InactiveSleepTime = TimeSpan.FromSeconds(1);
+		}
+
+		void graphics_PreparingDeviceSettings(object sender, PreparingDeviceSettingsEventArgs e)
+		{
+			// Use device native refresh rate
+			e.GraphicsDeviceInformation.PresentationParameters.PresentationInterval = PresentInterval.One;
 		}
 
 		/// <summary>
@@ -40,7 +53,7 @@ namespace Bacon_Bear
 		/// </summary>
 		protected override void Initialize()
 		{
-			// TODO: Add your initialization logic here
+			engine = new Engine.Engine(this);
 
 			base.Initialize();
 		}
@@ -51,10 +64,7 @@ namespace Bacon_Bear
 		/// </summary>
 		protected override void LoadContent()
 		{
-			// Create a new SpriteBatch, which can be used to draw textures.
-			spriteBatch = new SpriteBatch(GraphicsDevice);
-
-			// TODO: use this.Content to load your game content here
+			engine.PushScreen(new Level());
 		}
 
 		/// <summary>
@@ -63,7 +73,6 @@ namespace Bacon_Bear
 		/// </summary>
 		protected override void UnloadContent()
 		{
-			// TODO: Unload any non ContentManager content here
 		}
 
 		/// <summary>
@@ -77,7 +86,7 @@ namespace Bacon_Bear
 			if (GamePad.GetState(PlayerIndex.One).Buttons.Back == ButtonState.Pressed)
 				this.Exit();
 
-			// TODO: Add your update logic here
+			engine.Update(gameTime);
 
 			base.Update(gameTime);
 		}
@@ -88,9 +97,9 @@ namespace Bacon_Bear
 		/// <param name="gameTime">Provides a snapshot of timing values.</param>
 		protected override void Draw(GameTime gameTime)
 		{
-			GraphicsDevice.Clear(Color.CornflowerBlue);
+			GraphicsDevice.Clear(Color.White);
 
-			// TODO: Add your drawing code here
+			engine.Draw(gameTime);
 
 			base.Draw(gameTime);
 		}

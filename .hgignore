@@ -6,3 +6,5 @@ Engine/obj
 Engine/bin
 Bacon Bear/Bacon Bear/bin
 Bacon Bear/Bacon BearContent/bin
+*.cachefile
+*.user
