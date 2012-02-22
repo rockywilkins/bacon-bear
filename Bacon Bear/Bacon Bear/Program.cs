@@ -1,6 +1,6 @@
 using System;
 
-namespace Bacon_Bear
+namespace BaconBear
 {
 #if WINDOWS || XBOX
     static class Program
