@@ -2,6 +2,7 @@ using System.Collections.Generic;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using Engine.Entities;
+using Engine.Graphics;
 
 namespace Engine.Screens
 {
@@ -11,6 +12,7 @@ namespace Engine.Screens
 
 		private Engine parent;
 		private List<Entity> entities;
+		private Camera camera;
 
 		#endregion
 
@@ -36,6 +38,7 @@ namespace Engine.Screens
 		public Screen()
 		{
 			entities = new List<Entity>();
+			camera = new Camera();
 		}
 
 		public virtual void Update(GameTime gameTime)
@@ -48,10 +51,12 @@ namespace Engine.Screens
 
 		public virtual void Draw(GameTime gameTime, SpriteBatch spriteBatch)
 		{
-			foreach (Entity entity in entities)
-			{
-				entity.Draw(gameTime, spriteBatch);
-			}
+			camera.Draw(entities, gameTime, spriteBatch);
+
+			//foreach (Entity entity in entities)
+			//{
+			//    entity.Draw(gameTime, spriteBatch);
+			//}
 		}
 
 		#endregion

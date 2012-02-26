@@ -3,14 +3,15 @@ using Microsoft.Xna.Framework.Graphics;
 using BaconBear.Entities;
 using BaconBear.Entities.Components;
 using Engine.Entities;
+using Engine.Graphics;
 
 namespace BaconBear.Entities.Components.Graphics
 {
 	public class BearGraphicComponent : EntityComponent
 	{
-		public override void Draw(GameTime gameTime, SpriteBatch spriteBatch)
+		public override void Draw(GameTime gameTime, SpriteBatch spriteBatch, Camera camera)
 		{
-			spriteBatch.Begin();
+			spriteBatch.Begin(SpriteSortMode.BackToFront, null, null, null, null, null, camera.Transform);
 
 			Texture2D texture = Engine.Engine.Content.Load<Texture2D>("Textures/Bear");
 
