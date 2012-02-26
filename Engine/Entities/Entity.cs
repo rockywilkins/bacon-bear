@@ -1,3 +1,4 @@
+using System.Collections.Generic;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 
@@ -9,6 +10,8 @@ namespace Engine.Entities
 
 		private Vector2 position;
 		private Vector2 velocity;
+
+		private List<EntityComponent> components;
 
 		#endregion
 
@@ -27,17 +30,58 @@ namespace Engine.Entities
 			set { velocity = value; }
 		}
 
+		public List<EntityComponent> Components
+		{
+			get { return components; }
+		}
+
 		#endregion
 
 
 		#region Methods
 
-		public void Update(GameTime gameTime)
+		public Entity()
 		{
+			components = new List<EntityComponent>();
 		}
 
-		public void Draw(GameTime gameTime, SpriteBatch spriteBatch)
+		public virtual void Update(GameTime gameTime)
 		{
+			foreach (EntityComponent component in components)
+			{
+				component.Update(gameTime);
+			}
+		}
+
+		public virtual void Draw(GameTime gameTime, SpriteBatch spriteBatch)
+		{
+			foreach (EntityComponent component in components)
+			{
+				component.Draw(gameTime, spriteBatch);
+			}
+		}
+
+		public void AddComponent(EntityComponent component)
+		{
+			if (!components.Contains(component))
+			{
+				component.Parent = this;
+				components.Add(component);
+			}
+		}
+
+		public void RemoveComponent(EntityComponent component)
+		{
+			component.Parent = null;
+			components.Remove(component);
+		}
+
+		public void SendMessage(string message)
+		{
+			foreach (EntityComponent component in components)
+			{
+				component.ReceiveMessage(message);
+			}
 		}
 
 		#endregion

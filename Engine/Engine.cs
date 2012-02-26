@@ -1,6 +1,7 @@
 using System.Collections.Generic;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
+using Microsoft.Xna.Framework.Content;
 using Engine.Screens;
 
 namespace Engine
@@ -36,6 +37,13 @@ namespace Engine
 		#endregion
 
 
+		#region Static Fields
+
+		public static ContentManager Content;
+
+		#endregion
+
+
 		#region Methods
 
 		public Engine(Game game)
@@ -43,6 +51,7 @@ namespace Engine
 			this.game = game;
 			spriteBatch = new SpriteBatch(Game.GraphicsDevice);
 			screens = new Stack<Screen>();
+			Content = game.Content;
 		}
 
 		public void Update(GameTime gameTime)
