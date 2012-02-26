@@ -63,12 +63,12 @@
     <Compile Include="Engine.cs" />
     <Compile Include="Entities\Entity.cs" />
     <Compile Include="Entities\EntityComponent.cs" />
+    <Compile Include="Graphics\Camera.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Screens\Screen.cs" />
     <Compile Include="UI\TextRendering.cs" />
   </ItemGroup>
   <ItemGroup>
-    <Folder Include="Graphics\" />
     <Folder Include="Helpers\" />
     <Folder Include="Input\" />
     <Folder Include="Physics\" />

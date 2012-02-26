@@ -1,6 +1,7 @@
 using System.Collections.Generic;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
+using Engine.Graphics;
 
 namespace Engine.Entities
 {
@@ -53,11 +54,11 @@ namespace Engine.Entities
 			}
 		}
 
-		public virtual void Draw(GameTime gameTime, SpriteBatch spriteBatch)
+		public virtual void Draw(GameTime gameTime, SpriteBatch spriteBatch, Camera camera)
 		{
 			foreach (EntityComponent component in components)
 			{
-				component.Draw(gameTime, spriteBatch);
+				component.Draw(gameTime, spriteBatch, camera);
 			}
 		}
 
