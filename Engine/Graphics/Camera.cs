@@ -13,7 +13,7 @@ namespace Engine.Graphics
 		private float zoom = 1f;
 		private float rotation = 0f;
 
-		private Matrix transform;
+		private Matrix matrix;
 
 		private int width;
 		private int height;
@@ -41,10 +41,10 @@ namespace Engine.Graphics
 			set { rotation = value; }
 		}
 
-		public Matrix Transform
+		public Matrix Matrix
 		{
-			get { return transform; }
-			set { transform = value; }
+			get { return matrix; }
+			set { matrix = value; }
 		}
 
 		public int Width
@@ -88,7 +88,7 @@ namespace Engine.Graphics
 		public void Update(GameTime gameTime)
 		{
 			// Create the matrix for transforming sprites to camera space
-			transform = Matrix.CreateTranslation(new Vector3(-position.X, -position.Y, 0)) *
+			matrix = Matrix.CreateTranslation(new Vector3(-position.X, -position.Y, 0)) *
 										Matrix.CreateRotationZ(rotation) *
 										Matrix.CreateScale(new Vector3(zoom, zoom, 1)) *
 										Matrix.CreateTranslation(new Vector3(width / 2f, height / 2f, 0));

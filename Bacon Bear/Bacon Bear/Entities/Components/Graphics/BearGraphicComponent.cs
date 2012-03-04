@@ -11,7 +11,7 @@ namespace BaconBear.Entities.Components.Graphics
 	{
 		public override void Draw(GameTime gameTime, SpriteBatch spriteBatch, Camera camera)
 		{
-			spriteBatch.Begin(SpriteSortMode.BackToFront, null, null, null, null, null, camera.Transform);
+			spriteBatch.Begin(SpriteSortMode.BackToFront, null, null, null, null, null, camera.Matrix);
 
 			Texture2D texture = Engine.Engine.Content.Load<Texture2D>("Textures/Bear");
 
