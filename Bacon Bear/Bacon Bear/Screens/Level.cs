@@ -15,7 +15,6 @@ namespace BaconBear.Screens
 		public override void Update(GameTime gameTime)
 		{
 			Camera.Rotation += 0.01f;
-			Camera.Update(gameTime);
 
 			base.Update(gameTime);
 		}
