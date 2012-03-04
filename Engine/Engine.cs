@@ -11,7 +11,7 @@ namespace Engine
 		#region Fields
 
 		private Game game;
-		SpriteBatch spriteBatch;
+		private SpriteBatch spriteBatch;
 		private Stack<Screen> screens;
 
 		#endregion
@@ -37,9 +37,9 @@ namespace Engine
 		#endregion
 
 
-		#region Static Fields
+		#region Static Properties
 
-		public static ContentManager Content;
+		public static ContentManager Content { get; set; }
 
 		#endregion
 
