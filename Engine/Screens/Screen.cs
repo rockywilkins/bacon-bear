@@ -55,6 +55,8 @@ namespace Engine.Screens
 			{
 				entity.Update(gameTime);
 			}
+
+			camera.Update(gameTime);
 		}
 
 		public virtual void Draw(GameTime gameTime, SpriteBatch spriteBatch)
