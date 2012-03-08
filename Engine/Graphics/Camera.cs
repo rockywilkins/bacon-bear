@@ -2,6 +2,7 @@ using System.Collections.Generic;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using Engine.Entities;
+using Engine.Scene;
 
 namespace Engine.Graphics
 {
@@ -71,18 +72,28 @@ namespace Engine.Graphics
 			this.height = height;
 		}
 
-		public List<Entity> GetVisibleEntites(IEnumerable<Entity> entities)
+		public List<SceneItem> GetVisibleItems(IEnumerable<SceneItem> items)
 		{
-			List<Entity> visibleEntities = new List<Entity>();
+			List<SceneItem> visibleItems = new List<SceneItem>();
 
-			foreach (Entity entity in entities)
+			foreach (SceneItem item in items)
 			{
 				// TODO: Add code for checking if entity is in screen bounds
 
-				visibleEntities.Add(entity);
+				visibleItems.Add(item);
 			}
 
-			return visibleEntities;
+			return visibleItems;
+		}
+
+		public Vector2 ConvertToScreenPos(Vector2 position)
+		{
+			return Vector2.Transform(position, matrix);
+		}
+
+		public Vector2 ConvertToWorldPos(Vector2 position)
+		{
+			return Vector2.Transform(position, Matrix.Invert(matrix));
 		}
 
 		public void Update(GameTime gameTime)
@@ -94,13 +105,13 @@ namespace Engine.Graphics
 										Matrix.CreateTranslation(new Vector3(width / 2f, height / 2f, 0));
 		}
 
-		public void Draw(IEnumerable<Entity> entities, GameTime gameTime, SpriteBatch spriteBatch)
+		public void Draw(IEnumerable<SceneItem> items, GameTime gameTime, SpriteBatch spriteBatch)
 		{
-			List<Entity> visibleEntities = GetVisibleEntites(entities);
+			List<SceneItem> visibleItems = GetVisibleItems(items);
 
-			foreach (Entity entity in visibleEntities)
+			foreach (SceneItem item in visibleItems)
 			{
-				entity.Draw(gameTime, spriteBatch, this);
+				item.Draw(gameTime, spriteBatch, this);
 			}
 		}
 

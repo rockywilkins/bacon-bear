@@ -2,10 +2,11 @@ using System.Collections.Generic;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using Engine.Graphics;
+using Engine.Scene;
 
 namespace Engine.Entities
 {
-	public abstract class Entity
+	public abstract class Entity : SceneItem
 	{
 		#region Fields
 
@@ -41,12 +42,12 @@ namespace Engine.Entities
 
 		#region Methods
 
-		public Entity()
+		public Entity(Scene.Scene parent) : base(parent)
 		{
 			components = new List<EntityComponent>();
 		}
 
-		public virtual void Update(GameTime gameTime)
+		public override void Update(GameTime gameTime)
 		{
 			foreach (EntityComponent component in components)
 			{
@@ -54,7 +55,7 @@ namespace Engine.Entities
 			}
 		}
 
-		public virtual void Draw(GameTime gameTime, SpriteBatch spriteBatch, Camera camera)
+		public override void Draw(GameTime gameTime, SpriteBatch spriteBatch, Camera camera)
 		{
 			foreach (EntityComponent component in components)
 			{
@@ -77,7 +78,7 @@ namespace Engine.Entities
 			components.Remove(component);
 		}
 
-		public void SendMessage(string message)
+		public void SendMessage(object message)
 		{
 			foreach (EntityComponent component in components)
 			{
