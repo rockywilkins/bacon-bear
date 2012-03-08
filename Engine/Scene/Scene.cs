@@ -7,8 +7,8 @@ namespace Engine.Scene
 	{
 		#region Fields
 
-		private List<SceneItem> items;
-		private List<Camera> cameras;
+		private List<SceneItem> items = new List<SceneItem>();
+		private List<Camera> cameras = new List<Camera>();
 
 		#endregion
 

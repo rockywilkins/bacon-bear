@@ -11,8 +11,6 @@ namespace Engine.Screens
 		#region Fields
 
 		private Engine parent;
-		private List<Entity> entities;
-		private Camera camera;
 
 		#endregion
 
@@ -25,17 +23,6 @@ namespace Engine.Screens
 			set { parent = value; }
 		}
 
-		public List<Entity> Entities
-		{
-			get { return entities; }
-		}
-
-		public Camera Camera
-		{
-			get { return camera; }
-			set { camera = value; }
-		}
-
 		#endregion
 
 
@@ -43,25 +30,14 @@ namespace Engine.Screens
 
 		public Screen()
 		{
-			entities = new List<Entity>();
-
-			// TODO: Get the screen dimensions
-			camera = new Camera(800, 480);
 		}
 
 		public virtual void Update(GameTime gameTime)
 		{
-			foreach (Entity entity in entities)
-			{
-				entity.Update(gameTime);
-			}
-
-			camera.Update(gameTime);
 		}
 
 		public virtual void Draw(GameTime gameTime, SpriteBatch spriteBatch)
 		{
-			camera.Draw(entities, gameTime, spriteBatch);
 		}
 
 		#endregion
