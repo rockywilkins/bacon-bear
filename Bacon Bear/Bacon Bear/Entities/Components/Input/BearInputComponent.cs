@@ -12,14 +12,12 @@ namespace BaconBear.Entities.Components.Input
 	{
 		private TouchInputHandler touchInput;
 
-		public override void ReceiveMessage(object message)
+		public override void ReceiveMessage(string name, object value)
 		{
-			if (message.GetType().Name == "TouchInputHandler")
+			if (name == "touch_input")
 			{
-				touchInput = message as TouchInputHandler;
+				touchInput = value as TouchInputHandler;
 			}
-
-			base.ReceiveMessage(message);
 		}
 
 		public override void Update(GameTime gameTime)
@@ -35,9 +33,11 @@ namespace BaconBear.Entities.Components.Input
 			switch (location.State)
 			{
 				case TouchLocationState.Pressed:
-					Parent.Position = location.Position;
+					Parent.SendMessage("screen_touch", location.Position);
+					//Parent.Position = location.Position;
 					break;
 				case TouchLocationState.Moved:
+					//Parent.Position = location.Position;
 					break;
 				case TouchLocationState.Released:
 					break;

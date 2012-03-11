@@ -5,6 +5,7 @@ using Engine.Entities;
 using Engine.Scene;
 using BaconBear.Entities.Components.Graphics;
 using BaconBear.Entities.Components.Input;
+using BaconBear.Entities.Components.Physics;
 
 namespace BaconBear.Entities
 {
@@ -14,6 +15,7 @@ namespace BaconBear.Entities
 		{
 			AddComponent(new BearGraphicComponent());
 			AddComponent(new BearInputComponent());
+			AddComponent(new BearPhysicsComponent());
 		}
 	}
 }

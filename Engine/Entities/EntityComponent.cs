@@ -34,7 +34,7 @@ namespace Engine.Entities
 		{
 		}
 
-		public virtual void ReceiveMessage(object message)
+		public virtual void ReceiveMessage(string name, object value)
 		{
 		}
 
