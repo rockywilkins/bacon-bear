@@ -32,15 +32,18 @@ namespace BaconBear.Screens
 			touchHandler = new TouchInputHandler(scene.Cameras[0]);
 			physicsWorld = new World(Vector2.Zero);
 
+			// Get the dimensions of the world boundary
 			float width = ConvertUnits.ToSimUnits(800);
 			float height = ConvertUnits.ToSimUnits(480);
 
+			// Create a vertice for each corner of the boundary
 			Vertices bounds = new Vertices(4);
 			bounds.Add(new Vector2(0, 0));
 			bounds.Add(new Vector2(width, 0));
 			bounds.Add(new Vector2(width, height));
 			bounds.Add(new Vector2(0, height));
 
+			// Create the boundary shape and make it collide with everything
 			Body boundary = BodyFactory.CreateLoopShape(physicsWorld, bounds);
 			boundary.CollisionCategories = Category.All;
 			boundary.CollidesWith = Category.All;
