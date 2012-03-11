@@ -78,11 +78,11 @@ namespace Engine.Entities
 			components.Remove(component);
 		}
 
-		public void SendMessage(object message)
+		public void SendMessage(string name, object value)
 		{
 			foreach (EntityComponent component in components)
 			{
-				component.ReceiveMessage(message);
+				component.ReceiveMessage(name, value);
 			}
 		}
 

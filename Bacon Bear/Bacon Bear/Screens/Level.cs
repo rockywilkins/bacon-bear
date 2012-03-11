@@ -1,10 +1,14 @@
 using System;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
+using FarseerPhysics.Common;
+using FarseerPhysics.Dynamics;
+using FarseerPhysics.Factories;
 using Engine.Graphics;
+using Engine.Input;
+using Engine.Physics;
 using Engine.Scene;
 using Engine.Screens;
-using Engine.Input;
 using BaconBear.Entities;
 
 namespace BaconBear.Screens
@@ -13,30 +17,48 @@ namespace BaconBear.Screens
 	{
 		private Scene scene;
 		private TouchInputHandler touchHandler;
+		private World physicsWorld;
 
 		public Level() : base()
 		{
+			Camera camera = new Camera(800, 480);
+			camera.Position = new Vector2(400f, 240f);
+
 			scene = new Scene();
-			scene.Cameras.Add(new Camera(800, 480));
+			scene.Cameras.Add(camera);
 			Bear baconBear = new Bear(scene);
 			scene.Items.Add(baconBear);
-			touchHandler = new TouchInputHandler(scene.Cameras[0]);
 
-			baconBear.SendMessage(touchHandler);
+			touchHandler = new TouchInputHandler(scene.Cameras[0]);
+			physicsWorld = new World(Vector2.Zero);
+
+			float width = ConvertUnits.ToSimUnits(800);
+			float height = ConvertUnits.ToSimUnits(480);
+
+			Vertices bounds = new Vertices(4);
+			bounds.Add(new Vector2(0, 0));
+			bounds.Add(new Vector2(width, 0));
+			bounds.Add(new Vector2(width, height));
+			bounds.Add(new Vector2(0, height));
+
+			Body boundary = BodyFactory.CreateLoopShape(physicsWorld, bounds);
+			boundary.CollisionCategories = Category.All;
+			boundary.CollidesWith = Category.All;
+			
+			baconBear.SendMessage("touch_input", touchHandler);
+			baconBear.SendMessage("physics_world", physicsWorld);
 		}
 
 		public override void Update(GameTime gameTime)
 		{
-			scene.Cameras[0].Rotation += 0.01f;
-
 			foreach (SceneItem item in scene.Items)
 			{
 				item.Update(gameTime);
 			}
 
-			scene.Cameras[0].Update(gameTime);
+			physicsWorld.Step(Math.Min((float)gameTime.ElapsedGameTime.TotalSeconds, (1f / 30f)));
 
-			base.Update(gameTime);
+			scene.Cameras[0].Update(gameTime);
 		}
 
 		public override void Draw(GameTime gameTime, SpriteBatch spriteBatch)
@@ -47,8 +69,6 @@ namespace BaconBear.Screens
 			}
 
 			scene.Cameras[0].Draw(scene.Items, gameTime, spriteBatch);
-
-			base.Draw(gameTime, spriteBatch);
 		}
 	}
 }

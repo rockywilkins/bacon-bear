@@ -52,6 +52,9 @@
     <XnaCompressContent>false</XnaCompressContent>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="FarseerPhysicsXNA">
+      <HintPath>..\..\Engine\Physics\FarseerPhysicsXNA.dll</HintPath>
+    </Reference>
     <Reference Include="Microsoft.Xna.Framework" />
     <Reference Include="Microsoft.Xna.Framework.Game" />
     <Reference Include="Microsoft.Xna.Framework.Graphics" />
@@ -68,6 +71,7 @@
     <Compile Include="Entities\Bear.cs" />
     <Compile Include="Entities\Components\Graphics\BearGraphicComponent.cs" />
     <Compile Include="Entities\Components\Input\BearInputComponent.cs" />
+    <Compile Include="Entities\Components\Physics\BearPhysicsComponent.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Screens\Level.cs" />
     <Compile Include="Screens\MainMenuScreen.cs" />
