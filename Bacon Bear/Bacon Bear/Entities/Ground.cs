@@ -13,6 +13,10 @@ namespace BaconBear.Entities
 	{
 		private World physicsWorld;
 
+		public Ground(Scene parent) : base(parent)
+		{
+		}
+
 		public override void Draw(GameTime gameTime, SpriteBatch spriteBatch, Camera camera)
 		{
 			Parent.PrimitiveBatch.Begin(PrimitiveType.LineStrip);
