@@ -41,7 +41,7 @@ namespace BaconBear.Screens
 			scene.Items.Add(ground);
 
 			touchHandler = new TouchInputHandler(scene.Cameras[0]);
-			physicsWorld = new World(Vector2.Zero);
+			physicsWorld = new World(new Vector2(0, 25));
 
 			// Get the dimensions of the world boundary
 			float width = ConvertUnits.ToSimUnits(800);
