@@ -32,6 +32,14 @@ namespace Engine.Screens
 		{
 		}
 
+		public virtual void Load()
+		{
+		}
+
+		public virtual void Unload()
+		{
+		}
+
 		public virtual void Update(GameTime gameTime)
 		{
 		}

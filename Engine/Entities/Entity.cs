@@ -78,7 +78,23 @@ namespace Engine.Entities
 			components.Remove(component);
 		}
 
-		public void SendMessage(string name, object value)
+		public virtual void Load()
+		{
+			foreach (EntityComponent component in components)
+			{
+				component.Load();
+			}
+		}
+
+		public virtual void Unload()
+		{
+			foreach (EntityComponent component in components)
+			{
+				component.Unload();
+			}
+		}
+
+		public virtual void SendMessage(string name, object value)
 		{
 			foreach (EntityComponent component in components)
 			{

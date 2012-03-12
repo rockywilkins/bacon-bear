@@ -34,6 +34,14 @@ namespace Engine.Entities
 		{
 		}
 
+		public virtual void Load()
+		{
+		}
+
+		public virtual void Unload()
+		{
+		}
+
 		public virtual void ReceiveMessage(string name, object value)
 		{
 		}

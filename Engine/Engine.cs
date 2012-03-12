@@ -75,6 +75,7 @@ namespace Engine
 			if (!screens.Contains(screen))
 			{
 				screen.Parent = this;
+				screen.Load();
 				screens.Push(screen);
 			}
 		}
@@ -87,6 +88,7 @@ namespace Engine
 			}
 
 			Screen screen = screens.Pop();
+			screen.Unload();
 			screen.Parent = null;
 			return screen;
 		}
