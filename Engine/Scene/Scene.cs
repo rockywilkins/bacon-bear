@@ -27,6 +27,8 @@ namespace Engine.Scene
 			set { cameras = value; }
 		}
 
+		public PrimitiveBatch PrimitiveBatch { get; set; }
+
 		#endregion
 	}
 }

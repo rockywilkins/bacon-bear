@@ -21,13 +21,24 @@ namespace BaconBear.Screens
 
 		public Level() : base()
 		{
+
+		}
+
+		public override void Load()
+		{
 			Camera camera = new Camera(800, 480);
 			camera.Position = new Vector2(400f, 240f);
 
 			scene = new Scene();
 			scene.Cameras.Add(camera);
+			scene.PrimitiveBatch = new PrimitiveBatch(Parent.Game.GraphicsDevice);
+
+			// Create entities
 			Bear baconBear = new Bear(scene);
 			scene.Items.Add(baconBear);
+
+			Ground ground = new Ground(scene);
+			scene.Items.Add(ground);
 
 			touchHandler = new TouchInputHandler(scene.Cameras[0]);
 			physicsWorld = new World(Vector2.Zero);
@@ -47,9 +58,13 @@ namespace BaconBear.Screens
 			Body boundary = BodyFactory.CreateLoopShape(physicsWorld, bounds);
 			boundary.CollisionCategories = Category.All;
 			boundary.CollidesWith = Category.All;
-			
+
 			baconBear.SendMessage("touch_input", touchHandler);
 			baconBear.SendMessage("physics_world", physicsWorld);
+			ground.SendMessage("physics_world", physicsWorld);
+
+			baconBear.Load();
+			ground.Load();
 		}
 
 		public override void Update(GameTime gameTime)
