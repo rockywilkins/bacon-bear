@@ -43,11 +43,24 @@ namespace BaconBear.Entities.Components.Physics
 
 				body.BodyType = BodyType.Dynamic;
 				body.Position = ConvertUnits.ToSimUnits(Parent.Position);
-				body.Restitution = 0.8f;
+				body.Restitution = 0.3f;
 			}
 			else if (name == "screen_touch")
 			{
-				body.ApplyForce((Vector2)value);
+				Vector2 touchPosition = (Vector2)value;
+				float x = 0;
+				if (touchPosition.X < Parent.Position.X)
+				{
+					x = -300f;
+					Parent.SendMessage("direction", "left");
+				}
+				else
+				{
+					x = 300f;
+					Parent.SendMessage("direction", "right");
+				}
+
+				body.ApplyForce(new Vector2(x, -500f));
 			}
 		}
 
