@@ -11,6 +11,13 @@ namespace BaconBear.Entities.Components.Graphics
 	{
 		private bool flipped = false;
 
+		public override void Update(GameTime gameTime)
+		{
+			base.Update(gameTime);
+
+			Parent.Parent.Cameras[0].Position = Parent.Position;
+		}
+
 		public override void Draw(GameTime gameTime, SpriteBatch spriteBatch, Camera camera)
 		{
 			spriteBatch.Begin(SpriteSortMode.BackToFront, null, null, null, null, null, camera.Matrix);

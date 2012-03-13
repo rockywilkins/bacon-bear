@@ -15,7 +15,7 @@ namespace Engine.Scene
 
 		#region Properties
 
-		protected Scene Parent
+		public Scene Parent
 		{
 			get { return parent; }
 		}
