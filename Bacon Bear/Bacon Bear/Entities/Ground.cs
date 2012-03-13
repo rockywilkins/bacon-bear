@@ -19,9 +19,12 @@ namespace BaconBear.Entities
 
 		public override void Draw(GameTime gameTime, SpriteBatch spriteBatch, Camera camera)
 		{
+			Vector2 point1 = camera.ConvertToScreenPos(new Vector2(0, 400));
+			Vector2 point2 = camera.ConvertToScreenPos(new Vector2(1600, 400));
+
 			Parent.PrimitiveBatch.Begin(PrimitiveType.LineStrip);
-			Parent.PrimitiveBatch.AddVertex(new Vector2(0, 400), Color.Black);
-			Parent.PrimitiveBatch.AddVertex(new Vector2(800, 400), Color.Black);
+			Parent.PrimitiveBatch.AddVertex(point1, Color.Green);
+			Parent.PrimitiveBatch.AddVertex(point2, Color.Blue);
 			Parent.PrimitiveBatch.End();
 
 			base.Draw(gameTime, spriteBatch, camera);
@@ -29,7 +32,7 @@ namespace BaconBear.Entities
 
 		public override void Load()
 		{
-			float width = ConvertUnits.ToSimUnits(800);
+			float width = ConvertUnits.ToSimUnits(1600);
 			float height = ConvertUnits.ToSimUnits(400);
 
 			// Add floor shape

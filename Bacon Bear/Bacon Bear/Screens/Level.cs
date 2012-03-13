@@ -44,7 +44,7 @@ namespace BaconBear.Screens
 			physicsWorld = new World(new Vector2(0, 25));
 
 			// Get the dimensions of the world boundary
-			float width = ConvertUnits.ToSimUnits(800);
+			float width = ConvertUnits.ToSimUnits(1600);
 			float height = ConvertUnits.ToSimUnits(480);
 
 			// Create a vertice for each corner of the boundary
