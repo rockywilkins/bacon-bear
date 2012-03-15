@@ -40,6 +40,10 @@ namespace BaconBear.Screens
 			Ground ground = new Ground(scene);
 			scene.Items.Add(ground);
 
+			Enemy enemy1 = new Enemy(scene);
+			enemy1.Position = new Vector2(400, 200);
+			scene.Items.Add(enemy1);
+
 			touchHandler = new TouchInputHandler(scene.Cameras[0]);
 			physicsWorld = new World(new Vector2(0, 25));
 
@@ -62,6 +66,7 @@ namespace BaconBear.Screens
 			baconBear.SendMessage("touch_input", touchHandler);
 			baconBear.SendMessage("physics_world", physicsWorld);
 			ground.SendMessage("physics_world", physicsWorld);
+			enemy1.SendMessage("physics_world", physicsWorld);
 
 			baconBear.Load();
 			ground.Load();

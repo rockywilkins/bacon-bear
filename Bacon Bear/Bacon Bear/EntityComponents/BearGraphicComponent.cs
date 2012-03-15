@@ -5,11 +5,19 @@ using BaconBear.Entities.Components;
 using Engine.Entities;
 using Engine.Graphics;
 
-namespace BaconBear.Entities.Components.Graphics
+namespace BaconBear.Entities.Components
 {
 	public class BearGraphicComponent : EntityComponent
 	{
+		private Texture2D texture;
 		private bool flipped = false;
+
+		public override void Load()
+		{
+			texture = Engine.Engine.Content.Load<Texture2D>("Textures/Bear");
+
+			base.Load();
+		}
 
 		public override void Update(GameTime gameTime)
 		{
@@ -21,8 +29,6 @@ namespace BaconBear.Entities.Components.Graphics
 		public override void Draw(GameTime gameTime, SpriteBatch spriteBatch, Camera camera)
 		{
 			spriteBatch.Begin(SpriteSortMode.BackToFront, null, null, null, null, null, camera.Matrix);
-
-			Texture2D texture = Engine.Engine.Content.Load<Texture2D>("Textures/Bear");
 
 			SpriteEffects effect = flipped ? SpriteEffects.FlipHorizontally : SpriteEffects.None;
 			spriteBatch.Draw(texture, new Rectangle((int)Parent.Position.X, (int)Parent.Position.Y, 68, 46), null, Color.White, 0, Vector2.Zero, effect, 0);

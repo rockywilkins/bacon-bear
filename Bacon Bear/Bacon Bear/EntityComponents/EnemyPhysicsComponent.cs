@@ -1,20 +1,16 @@
 using Microsoft.Xna.Framework;
-using Microsoft.Xna.Framework.Graphics;
-using Microsoft.Xna.Framework.Input.Touch;
 using FarseerPhysics.Common;
 using FarseerPhysics.Collision.Shapes;
 using FarseerPhysics.Dynamics;
 using FarseerPhysics.Factories;
 using Engine.Entities;
-using Engine.Input;
 using Engine.Physics;
 using BaconBear.Entities;
 using BaconBear.Entities.Components;
 
-
 namespace BaconBear.Entities.Components
 {
-	public class BearPhysicsComponent : EntityComponent
+	public class EnemyPhysicsComponent : EntityComponent
 	{
 		World world;
 		Body body;
@@ -28,8 +24,8 @@ namespace BaconBear.Entities.Components
 				body = BodyFactory.CreateBody(world);
 				body.FixedRotation = true;
 
-				float width = ConvertUnits.ToSimUnits(68);
-				float height = ConvertUnits.ToSimUnits(46);
+				float width = ConvertUnits.ToSimUnits(28);
+				float height = ConvertUnits.ToSimUnits(51);
 
 				Vertices bounds = new Vertices(4);
 				bounds.Add(new Vector2(0, 0));
@@ -45,24 +41,34 @@ namespace BaconBear.Entities.Components
 				body.Position = ConvertUnits.ToSimUnits(Parent.Position);
 				body.Restitution = 0.3f;
 				body.UserData = Parent;
+
+				body.OnCollision += new OnCollisionEventHandler(body_OnCollision);
 			}
-			else if (name == "screen_touch")
+			else if (name == "flee")
 			{
-				Vector2 touchPosition = (Vector2)value;
+				string direction = value as string;
 				float x = 0;
-				if (touchPosition.X < Parent.Position.X)
+				if (direction == "left")
 				{
-					x = -100f;
-					Parent.SendMessage("direction", "left");
+					x = 50;
 				}
 				else
 				{
-					x = 100f;
-					Parent.SendMessage("direction", "right");
+					x = -50;
 				}
-
-				body.ApplyForce(new Vector2(x, -300f));
+				body.ApplyForce(new Vector2(x, -150));
 			}
+		}
+
+		bool body_OnCollision(Fixture fixtureA, Fixture fixtureB, FarseerPhysics.Dynamics.Contacts.Contact contact)
+		{
+			if (fixtureB.Body.UserData != null && fixtureB.Body.UserData.GetType().Name == "Bear")
+			{
+				Parent.SendMessage("attacked", fixtureB.Body.UserData);
+				return false;
+			}
+
+			return true;
 		}
 
 		public override void Update(GameTime gameTime)

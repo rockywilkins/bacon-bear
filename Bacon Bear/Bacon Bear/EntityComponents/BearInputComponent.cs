@@ -6,7 +6,7 @@ using Engine.Input;
 using BaconBear.Entities;
 using BaconBear.Entities.Components;
 
-namespace BaconBear.Entities.Components.Input
+namespace BaconBear.Entities.Components
 {
 	public class BearInputComponent : EntityComponent
 	{
