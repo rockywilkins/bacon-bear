@@ -3,9 +3,7 @@ using Microsoft.Xna.Framework.Graphics;
 using Engine;
 using Engine.Entities;
 using Engine.Scene;
-using BaconBear.Entities.Components.Graphics;
-using BaconBear.Entities.Components.Input;
-using BaconBear.Entities.Components.Physics;
+using BaconBear.Entities.Components;
 
 namespace BaconBear.Entities
 {

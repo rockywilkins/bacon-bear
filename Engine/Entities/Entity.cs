@@ -68,6 +68,7 @@ namespace Engine.Entities
 			if (!components.Contains(component))
 			{
 				component.Parent = this;
+				component.Load();
 				components.Add(component);
 			}
 		}
