@@ -24,8 +24,8 @@ namespace BaconBear.Entities.Components
 				body = BodyFactory.CreateBody(world);
 				body.FixedRotation = true;
 
-				float width = ConvertUnits.ToSimUnits(28);
-				float height = ConvertUnits.ToSimUnits(51);
+				float width = ConvertUnits.ToSimUnits(25);
+				float height = ConvertUnits.ToSimUnits(50);
 
 				Vertices bounds = new Vertices(4);
 				bounds.Add(new Vector2(0, 0));

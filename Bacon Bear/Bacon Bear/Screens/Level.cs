@@ -34,11 +34,14 @@ namespace BaconBear.Screens
 			scene.PrimitiveBatch = new PrimitiveBatch(Parent.Game.GraphicsDevice);
 
 			// Create entities
-			Bear baconBear = new Bear(scene);
-			scene.Items.Add(baconBear);
+			Sky sky = new Sky(scene);
+			scene.Items.Add(sky);
 
 			Ground ground = new Ground(scene);
 			scene.Items.Add(ground);
+
+			Bear baconBear = new Bear(scene);
+			scene.Items.Add(baconBear);
 
 			Enemy enemy1 = new Enemy(scene);
 			enemy1.Position = new Vector2(400, 200);
@@ -63,13 +66,15 @@ namespace BaconBear.Screens
 			boundary.CollisionCategories = Category.All;
 			boundary.CollidesWith = Category.All;
 
+			ground.SendMessage("physics_world", physicsWorld);
 			baconBear.SendMessage("touch_input", touchHandler);
 			baconBear.SendMessage("physics_world", physicsWorld);
-			ground.SendMessage("physics_world", physicsWorld);
 			enemy1.SendMessage("physics_world", physicsWorld);
 
-			baconBear.Load();
+			sky.Load();
 			ground.Load();
+			baconBear.Load();
+			enemy1.Load();
 		}
 
 		public override void Update(GameTime gameTime)

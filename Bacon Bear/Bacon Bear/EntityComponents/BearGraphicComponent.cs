@@ -19,23 +19,6 @@ namespace BaconBear.Entities.Components
 			base.Load();
 		}
 
-		public override void Update(GameTime gameTime)
-		{
-			base.Update(gameTime);
-
-			Parent.Parent.Cameras[0].Position = Parent.Position;
-		}
-
-		public override void Draw(GameTime gameTime, SpriteBatch spriteBatch, Camera camera)
-		{
-			spriteBatch.Begin(SpriteSortMode.BackToFront, null, null, null, null, null, camera.Matrix);
-
-			SpriteEffects effect = flipped ? SpriteEffects.FlipHorizontally : SpriteEffects.None;
-			spriteBatch.Draw(texture, new Rectangle((int)Parent.Position.X, (int)Parent.Position.Y, 68, 46), null, Color.White, 0, Vector2.Zero, effect, 0);
-
-			spriteBatch.End();
-		}
-
 		public override void ReceiveMessage(string name, object value)
 		{
 			if (name == "direction")
@@ -52,6 +35,23 @@ namespace BaconBear.Entities.Components
 			}
 
 			base.ReceiveMessage(name, value);
+		}
+
+		public override void Update(GameTime gameTime)
+		{
+			base.Update(gameTime);
+
+			Parent.Parent.Cameras[0].Position = Vector2.Add(Parent.Position, new Vector2(0, -100));
+		}
+
+		public override void Draw(GameTime gameTime, SpriteBatch spriteBatch, Camera camera)
+		{
+			spriteBatch.Begin(SpriteSortMode.BackToFront, null, null, null, null, null, camera.Matrix);
+
+			SpriteEffects effect = flipped ? SpriteEffects.FlipHorizontally : SpriteEffects.None;
+			spriteBatch.Draw(texture, new Rectangle((int)Parent.Position.X, (int)Parent.Position.Y, 70, 50), null, Color.White, 0, Vector2.Zero, effect, 0);
+
+			spriteBatch.End();
 		}
 	}
 }
