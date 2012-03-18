@@ -11,9 +11,9 @@ namespace BaconBear.Entities
 	{
 		public Bear(Scene parent) : base(parent)
 		{
-			AddComponent(new BearGraphicComponent());
-			AddComponent(new BearInputComponent());
 			AddComponent(new BearPhysicsComponent());
+			AddComponent(new BearAimingComponent());
+			AddComponent(new BearGraphicComponent());
 		}
 	}
 }

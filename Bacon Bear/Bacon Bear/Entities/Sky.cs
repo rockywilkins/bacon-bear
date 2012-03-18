@@ -9,17 +9,17 @@ using Engine.Scene;
 
 namespace BaconBear.Entities
 {
-	public class Ground : Entity
+	public class Sky : Entity
 	{
 		private Texture2D texture;
 
-		public Ground(Scene parent) : base(parent)
+		public Sky(Scene parent) : base(parent)
 		{
 		}
 
 		public override void Load()
 		{
-			texture = Engine.Engine.Content.Load<Texture2D>("Textures/Ground");
+			texture = Engine.Engine.Content.Load<Texture2D>("Textures/Sky");
 		}
 
 		public override void Draw(GameTime gameTime, SpriteBatch spriteBatch, Camera camera)
@@ -30,13 +30,12 @@ namespace BaconBear.Entities
 
 			for (int i = 0; i < total; i++)
 			{
-				spriteBatch.Draw(texture, new Rectangle(100 * i, 475, 100, 200), Color.White);
+				spriteBatch.Draw(texture, new Rectangle(100 * i, 0, 100, 500), Color.White);
 			}
 
 			spriteBatch.End();
 
 			base.Draw(gameTime, spriteBatch, camera);
 		}
-
 	}
 }

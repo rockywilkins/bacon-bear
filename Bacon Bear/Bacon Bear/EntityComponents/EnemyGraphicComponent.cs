@@ -18,19 +18,19 @@ namespace BaconBear.Entities.Components
 			base.Load();
 		}
 
-		public override void Draw(GameTime gameTime, SpriteBatch spriteBatch, Camera camera)
-		{
-			spriteBatch.Begin(SpriteSortMode.BackToFront, null, null, null, null, null, camera.Matrix);
-
-			spriteBatch.Draw(texture, new Rectangle((int)Parent.Position.X, (int)Parent.Position.Y, 28, 51), Color.White);
-
-			spriteBatch.End();
-		}
-
 		public override void ReceiveMessage(string name, object value)
 		{
 
 			base.ReceiveMessage(name, value);
+		}
+
+		public override void Draw(GameTime gameTime, SpriteBatch spriteBatch, Camera camera)
+		{
+			spriteBatch.Begin(SpriteSortMode.BackToFront, null, null, null, null, null, camera.Matrix);
+
+			spriteBatch.Draw(texture, new Rectangle((int)Parent.Position.X, (int)Parent.Position.Y, 25, 50), Color.White);
+
+			spriteBatch.End();
 		}
 	}
 }
