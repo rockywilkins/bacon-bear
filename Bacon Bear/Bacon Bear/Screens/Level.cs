@@ -1,4 +1,5 @@
 using System;
+using System.Collections.Generic;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using FarseerPhysics.Common;
@@ -17,7 +18,6 @@ namespace BaconBear.Screens
 	{
 		private Scene scene;
 		private TouchInputHandler touchHandler;
-		private World physicsWorld;
 
 		public Level() : base()
 		{
@@ -32,6 +32,7 @@ namespace BaconBear.Screens
 			scene = new Scene();
 			scene.Cameras.Add(camera);
 			scene.PrimitiveBatch = new PrimitiveBatch(Parent.Game.GraphicsDevice);
+			scene.PhysicsWorld = new World(new Vector2(0, 25));
 
 			// Create entities
 			Sky sky = new Sky(scene);
@@ -41,6 +42,7 @@ namespace BaconBear.Screens
 			scene.Items.Add(ground);
 
 			Bear baconBear = new Bear(scene);
+			baconBear.Position = new Vector2(200, 200);
 			scene.Items.Add(baconBear);
 
 			Enemy enemy1 = new Enemy(scene);
@@ -48,7 +50,6 @@ namespace BaconBear.Screens
 			scene.Items.Add(enemy1);
 
 			touchHandler = new TouchInputHandler(scene.Cameras[0]);
-			physicsWorld = new World(new Vector2(0, 25));
 
 			// Get the dimensions of the world boundary
 			float width = ConvertUnits.ToSimUnits(1600);
@@ -62,14 +63,14 @@ namespace BaconBear.Screens
 			bounds.Add(new Vector2(0, height));
 
 			// Create the boundary shape and make it collide with everything
-			Body boundary = BodyFactory.CreateLoopShape(physicsWorld, bounds);
+			Body boundary = BodyFactory.CreateLoopShape(scene.PhysicsWorld, bounds);
 			boundary.CollisionCategories = Category.All;
 			boundary.CollidesWith = Category.All;
 
-			ground.SendMessage("physics_world", physicsWorld);
+			ground.SendMessage("physics_world", scene.PhysicsWorld);
 			baconBear.SendMessage("touch_input", touchHandler);
-			baconBear.SendMessage("physics_world", physicsWorld);
-			enemy1.SendMessage("physics_world", physicsWorld);
+			baconBear.SendMessage("physics_world", scene.PhysicsWorld);
+			enemy1.SendMessage("physics_world", scene.PhysicsWorld);
 
 			sky.Load();
 			ground.Load();
@@ -79,12 +80,19 @@ namespace BaconBear.Screens
 
 		public override void Update(GameTime gameTime)
 		{
+			List<SceneItem> items = new List<SceneItem>();
+
 			foreach (SceneItem item in scene.Items)
+			{
+				items.Add(item);
+			}
+
+			foreach (SceneItem item in items)
 			{
 				item.Update(gameTime);
 			}
 
-			physicsWorld.Step(Math.Min((float)gameTime.ElapsedGameTime.TotalSeconds, (1f / 30f)));
+			scene.PhysicsWorld.Step(Math.Min((float)gameTime.ElapsedGameTime.TotalSeconds, (1f / 30f)));
 
 			scene.Cameras[0].Update(gameTime);
 		}

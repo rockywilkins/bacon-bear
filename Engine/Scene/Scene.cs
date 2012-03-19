@@ -1,4 +1,5 @@
 using System.Collections.Generic;
+using FarseerPhysics.Dynamics;
 using Engine.Graphics;
 
 namespace Engine.Scene
@@ -28,6 +29,8 @@ namespace Engine.Scene
 		}
 
 		public PrimitiveBatch PrimitiveBatch { get; set; }
+
+		public World PhysicsWorld { get; set; }
 
 		#endregion
 	}
