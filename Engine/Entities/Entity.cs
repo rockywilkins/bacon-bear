@@ -12,6 +12,7 @@ namespace Engine.Entities
 
 		private Vector2 position;
 		private Vector2 velocity;
+		private float rotation;
 
 		private List<EntityComponent> components;
 
@@ -30,6 +31,12 @@ namespace Engine.Entities
 		{
 			get { return velocity; }
 			set { velocity = value; }
+		}
+
+		public float Rotation
+		{
+			get { return rotation; }
+			set { rotation = value; }
 		}
 
 		public List<EntityComponent> Components

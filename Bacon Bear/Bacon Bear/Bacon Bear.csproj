@@ -69,8 +69,12 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Entities\Bear.cs" />
+    <Compile Include="Entities\Bacon.cs" />
     <Compile Include="Entities\Sky.cs" />
     <Compile Include="Entities\Enemy.cs" />
+    <Compile Include="EntityComponents\BaconPhysicsComponent.cs" />
+    <Compile Include="EntityComponents\BaconGraphicComponent.cs" />
+    <Compile Include="EntityComponents\BearAIComponent.cs" />
     <Compile Include="EntityComponents\EnemyAIComponent.cs" />
     <Compile Include="EntityComponents\EnemyGraphicComponent.cs" />
     <Compile Include="Entities\Ground.cs" />

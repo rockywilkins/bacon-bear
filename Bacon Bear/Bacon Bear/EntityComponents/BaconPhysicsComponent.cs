@@ -8,13 +8,13 @@ using FarseerPhysics.Factories;
 using Engine.Entities;
 using Engine.Input;
 using Engine.Physics;
+using Engine.Scene;
 using BaconBear.Entities;
 using BaconBear.Entities.Components;
 
-
 namespace BaconBear.Entities.Components
 {
-	public class BearPhysicsComponent : EntityComponent
+	public class BaconPhysicsComponent : EntityComponent
 	{
 		World world;
 		Body body;
@@ -26,10 +26,9 @@ namespace BaconBear.Entities.Components
 				world = value as World;
 
 				body = BodyFactory.CreateBody(world);
-				body.FixedRotation = true;
 
-				float width = ConvertUnits.ToSimUnits(70);
-				float height = ConvertUnits.ToSimUnits(50);
+				float width = ConvertUnits.ToSimUnits(10);
+				float height = ConvertUnits.ToSimUnits(25);
 
 				Vertices bounds = new Vertices(4);
 				bounds.Add(new Vector2(0, 0));
@@ -43,36 +42,49 @@ namespace BaconBear.Entities.Components
 
 				body.BodyType = BodyType.Dynamic;
 				body.Position = ConvertUnits.ToSimUnits(Parent.Position);
-				body.Restitution = 0.3f;
+				body.Restitution = 0f;
 				body.UserData = Parent;
-			}
-			else if (name == "screen_touch")
-			{
-				Vector2 touchPosition = (Vector2)value;
-				float x = 0;
-				if (touchPosition.X < Parent.Position.X)
-				{
-					x = -100f;
-					Parent.SendMessage("direction", "left");
-				}
-				else
-				{
-					x = 100f;
-					Parent.SendMessage("direction", "right");
-				}
 
-				body.ApplyForce(new Vector2(x, -300f));
+				body.OnCollision += new OnCollisionEventHandler(body_OnCollision);
 			}
-			else if (name == "move")
+			else if (name == "physics_impulse")
 			{
 				Vector2 direction = (Vector2)value;
 				body.ApplyForce(direction);
 			}
 		}
 
+		public override void Unload()
+		{
+			body.Dispose();
+
+			base.Unload();
+		}
+
+		bool body_OnCollision(Fixture fixtureA, Fixture fixtureB, FarseerPhysics.Dynamics.Contacts.Contact contact)
+		{
+			if (fixtureB.Body.UserData != null && fixtureB.Body.UserData.GetType().Name == "Enemy")
+			{
+				foreach (SceneItem item in Parent.Parent.Items)
+				{
+					if (item.GetType().Name == "Bear")
+					{
+						Bear bear = item as Bear;
+						bear.SendMessage("target", fixtureB.Body.UserData);
+					}
+				}
+
+				Parent.Unload();
+				Parent.Parent.Items.Remove(Parent);
+			}
+
+			return true;
+		}
+
 		public override void Update(GameTime gameTime)
 		{
 			Parent.Position = ConvertUnits.ToDisplayUnits(body.Position);
+			Parent.Rotation = body.Rotation;
 		}
 	}
 }

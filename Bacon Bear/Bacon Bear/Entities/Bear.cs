@@ -13,6 +13,7 @@ namespace BaconBear.Entities
 		{
 			AddComponent(new BearPhysicsComponent());
 			AddComponent(new BearAimingComponent());
+			AddComponent(new BearAIComponent());
 			AddComponent(new BearGraphicComponent());
 		}
 	}
