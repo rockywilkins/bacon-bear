@@ -52,6 +52,7 @@ namespace Engine
 			spriteBatch = new SpriteBatch(Game.GraphicsDevice);
 			screens = new Stack<Screen>();
 			Content = game.Content;
+			Debug.Console.Start(this);
 		}
 
 		public void Update(GameTime gameTime)
@@ -68,6 +69,8 @@ namespace Engine
 			{
 				screen.Draw(gameTime, spriteBatch);
 			}
+
+			Debug.Console.Draw(gameTime);
 		}
 
 		public void PushScreen(Screen screen)
