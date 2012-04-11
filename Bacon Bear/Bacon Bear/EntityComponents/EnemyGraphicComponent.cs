@@ -28,7 +28,7 @@ namespace BaconBear.Entities.Components
 		{
 			spriteBatch.Begin(SpriteSortMode.BackToFront, null, null, null, null, null, camera.Matrix);
 
-			spriteBatch.Draw(texture, new Rectangle((int)Parent.Position.X, (int)Parent.Position.Y, 25, 50), Color.White);
+			spriteBatch.Draw(texture, new Rectangle((int)Parent.Position.X, (int)Parent.Position.Y, 25, 50), null, Color.White, Parent.Rotation, Vector2.Zero, SpriteEffects.None, 0);
 
 			spriteBatch.End();
 		}
