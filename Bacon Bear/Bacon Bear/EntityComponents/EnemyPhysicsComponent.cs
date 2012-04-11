@@ -42,7 +42,7 @@ namespace BaconBear.Entities.Components
 				body.Restitution = 0.3f;
 				body.UserData = Parent;
 
-				body.OnCollision += new OnCollisionEventHandler(body_OnCollision);
+				//body.OnCollision += new OnCollisionEventHandler(body_OnCollision);
 			}
 			else if (name == "flee")
 			{
@@ -58,22 +58,22 @@ namespace BaconBear.Entities.Components
 				}
 				body.ApplyForce(new Vector2(x, -150));
 			}
+			else if (name == "death")
+			{
+				body.Rotation = 90f;
+				body.FixedRotation = false;
+			}
 		}
 
 		bool body_OnCollision(Fixture fixtureA, Fixture fixtureB, FarseerPhysics.Dynamics.Contacts.Contact contact)
 		{
-			if (fixtureB.Body.UserData != null && fixtureB.Body.UserData.GetType().Name == "Bear")
-			{
-				Parent.SendMessage("attacked", fixtureB.Body.UserData);
-				return false;
-			}
-
 			return true;
 		}
 
 		public override void Update(GameTime gameTime)
 		{
 			Parent.Position = ConvertUnits.ToDisplayUnits(body.Position);
+			Parent.Rotation = body.Rotation;
 		}
 	}
 }

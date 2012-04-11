@@ -45,6 +45,8 @@ namespace BaconBear.Entities.Components
 				body.Position = ConvertUnits.ToSimUnits(Parent.Position);
 				body.Restitution = 0.3f;
 				body.UserData = Parent;
+
+				body.OnCollision += new OnCollisionEventHandler(body_OnCollision);
 			}
 			else if (name == "screen_touch")
 			{
@@ -68,6 +70,18 @@ namespace BaconBear.Entities.Components
 				Vector2 direction = (Vector2)value;
 				body.ApplyForce(direction);
 			}
+		}
+
+		bool body_OnCollision(Fixture fixtureA, Fixture fixtureB, FarseerPhysics.Dynamics.Contacts.Contact contact)
+		{
+			if (fixtureB.Body.UserData != null && fixtureB.Body.UserData.GetType().Name == "Enemy")
+			{
+				Enemy enemy = fixtureB.Body.UserData as Enemy;
+				enemy.SendMessage("damage", 10f);
+				return false;
+			}
+
+			return true;
 		}
 
 		public override void Update(GameTime gameTime)
