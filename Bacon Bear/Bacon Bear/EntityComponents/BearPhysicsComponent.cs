@@ -46,7 +46,7 @@ namespace BaconBear.Entities.Components
 			body.Restitution = 0.3f;
 			body.UserData = Parent;
 
-			body.OnCollision += new OnCollisionEventHandler(body_OnCollision);
+			body.OnCollision += body_OnCollision;
 
 			((IMoveable)Parent).Moved += new MoveEventHandler(BearPhysicsComponent_Moved);
 		}

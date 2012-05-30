@@ -22,7 +22,7 @@ namespace BaconBear.Entities.Components
 
 			body = BodyFactory.CreateBody(world);
 
-			float width = ConvertUnits.ToSimUnits(10);
+			float width  = ConvertUnits.ToSimUnits(10);
 			float height = ConvertUnits.ToSimUnits(25);
 
 			Vertices bounds = new Vertices(4);
@@ -35,10 +35,11 @@ namespace BaconBear.Entities.Components
 
 			body.CreateFixture(shape);
 
-			body.BodyType = BodyType.Dynamic;
-			body.Position = ConvertUnits.ToSimUnits(Parent.Position);
-			body.Restitution = 0f;
-			body.UserData = Parent;
+			body.BodyType       = BodyType.Dynamic;
+			body.Position       = ConvertUnits.ToSimUnits(Parent.Position);
+			body.LinearVelocity = Parent.Velocity;
+			body.Restitution    = 0f;
+			body.UserData       = Parent;
 
 			body.OnCollision += body_OnCollision;
 		}

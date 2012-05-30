@@ -11,7 +11,7 @@ namespace BaconBear.Entities.Components
 
 		public override void Load()
 		{
-			((IAlive)Parent).Damaged += new DamageEventHandler(TakeDamage);
+			((IAlive)Parent).Damaged += TakeDamage;
 		}
 
 		public override void Update(GameTime gameTime)
