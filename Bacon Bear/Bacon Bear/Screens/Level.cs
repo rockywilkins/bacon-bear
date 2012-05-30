@@ -38,6 +38,11 @@ namespace BaconBear.Screens
 			Sky sky = new Sky(scene);
 			scene.Items.Add(sky);
 
+			Background background = new Background(scene);
+			background.Texture = Engine.Engine.Content.Load<Texture2D>("Textures/Background");
+
+			scene.Items.Add(background);
+
 			Ground ground = new Ground(scene);
 			scene.Items.Add(ground);
 
@@ -73,6 +78,7 @@ namespace BaconBear.Screens
 			enemy1.SendMessage("physics_world", scene.PhysicsWorld);
 
 			sky.Load();
+			background.Load();
 			ground.Load();
 			baconBear.Load();
 			enemy1.Load();
