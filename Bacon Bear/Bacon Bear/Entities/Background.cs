@@ -44,16 +44,18 @@ namespace BaconBear.Entities
 
 		public override void Draw(GameTime gameTime, SpriteBatch spriteBatch, Camera camera)
 		{
+			speed = 0;
+
 			if (lastPosition.X < bear.Position.X)
 			{
 				//Console.Write("Bear Moved", "Background Info - Moved: " + (lastpos.X - bear.Position.X).ToString());
-				speed = (lastPosition.X - bear.Position.X)/10;
+				speed = (lastPosition.X - bear.Position.X) / 10;
 				lastPosition = bear.Position;
 			}
 			else if (lastPosition.X > bear.Position.X)
 			{
 				//Console.Write("Bear Moved", "Background Info - Moved: " + (lastpos.X - bear.Position.X).ToString());
-				speed = (lastPosition.X - bear.Position.X)/10;
+				speed = (lastPosition.X - bear.Position.X) / 10;
 				lastPosition = bear.Position;
 			}
 
