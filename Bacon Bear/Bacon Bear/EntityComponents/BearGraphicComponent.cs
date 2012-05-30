@@ -16,25 +16,14 @@ namespace BaconBear.Entities.Components
 		{
 			texture = Engine.Engine.Content.Load<Texture2D>("Textures/Bear");
 
+			((IMoveable)Parent).Moved += new MoveEventHandler(BearGraphicComponent_Moved);
+
 			base.Load();
 		}
 
-		public override void ReceiveMessage(string name, object value)
+		void BearGraphicComponent_Moved(MoveDirection direction, float speed)
 		{
-			if (name == "direction")
-			{
-				string direction = value as string;
-				if (direction == "right")
-				{
-					flipped = false;
-				}
-				else
-				{
-					flipped = true;
-				}
-			}
-
-			base.ReceiveMessage(name, value);
+			flipped = direction != MoveDirection.Right;
 		}
 
 		public override void Update(GameTime gameTime)

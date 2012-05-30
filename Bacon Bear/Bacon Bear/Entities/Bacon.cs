@@ -1,6 +1,4 @@
 using Microsoft.Xna.Framework;
-using Microsoft.Xna.Framework.Graphics;
-using Engine;
 using Engine.Entities;
 using Engine.Scene;
 using BaconBear.Entities.Components;
@@ -14,8 +12,14 @@ namespace BaconBear.Entities
 
 		public Bacon(Scene parent) : base(parent)
 		{
+		}
+
+		public override void Load()
+		{
 			AddComponent(new BaconPhysicsComponent());
 			AddComponent(new BaconGraphicComponent());
+
+			base.Load();
 		}
 
 		public override void Update(GameTime gameTime)
