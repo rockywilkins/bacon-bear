@@ -28,6 +28,7 @@ namespace BaconBear
 			graphics = new GraphicsDeviceManager(this);
 			graphics.PreparingDeviceSettings += new EventHandler<PreparingDeviceSettingsEventArgs>(graphics_PreparingDeviceSettings);
 			graphics.SynchronizeWithVerticalRetrace = false;
+			graphics.IsFullScreen = true;
 			IsFixedTimeStep = false;
 
 			Content.RootDirectory = "Content";
