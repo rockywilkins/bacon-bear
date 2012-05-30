@@ -57,14 +57,14 @@ namespace BaconBear.Entities
 			}
 		}
 
-		protected void aiming_Stopped(Vector2 position)
+		protected void aiming_Stopped(Vector2 position, Vector2 difference)
 		{
 			// Create bacon and fire it
-			Bacon bacon = new Bacon(Parent)
-							  {
-								Position = Vector2.Add(Position, new Vector2(0, -50))
-							  };
-			
+			Bacon bacon = new Bacon(Parent);
+			bacon.Position = Vector2.Add(Position, new Vector2(0, -50));
+			bacon.Velocity = Vector2.Negate(difference) / 4;
+			bacon.Load();
+
 			//bacon.SendMessage("physics_impulse", Vector2.Negate(aimDifference) / 4);
 			Parent.Items.Add(bacon);
 		}
