@@ -49,7 +49,7 @@ namespace Engine.Entities
 
 		#region Methods
 
-		public Entity(Scene.Scene parent) : base(parent)
+		protected Entity(Scene.Scene parent) : base(parent)
 		{
 			components = new List<EntityComponent>();
 		}
@@ -75,7 +75,6 @@ namespace Engine.Entities
 			if (!components.Contains(component))
 			{
 				component.Parent = this;
-				component.Load();
 				components.Add(component);
 			}
 		}
