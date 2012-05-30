@@ -62,8 +62,13 @@
   <ItemGroup>
     <Compile Include="Debug\Console.cs" />
     <Compile Include="Engine.cs" />
+    <Compile Include="Entities\IMoveable.cs" />
+    <Compile Include="Entities\ITargeter.cs" />
+    <Compile Include="Entities\IEnemy.cs" />
     <Compile Include="Entities\Entity.cs" />
     <Compile Include="Entities\EntityComponent.cs" />
+    <Compile Include="Entities\IAlive.cs" />
+    <Compile Include="Entities\IPhysics.cs" />
     <Compile Include="Graphics\Camera.cs" />
     <Compile Include="Graphics\PrimitiveBatch.cs" />
     <Compile Include="Graphics\Sprite.cs" />

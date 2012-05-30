@@ -42,10 +42,6 @@ namespace Engine.Entities
 		{
 		}
 
-		public virtual void ReceiveMessage(string name, object value)
-		{
-		}
-
 		#endregion
 	}
 }

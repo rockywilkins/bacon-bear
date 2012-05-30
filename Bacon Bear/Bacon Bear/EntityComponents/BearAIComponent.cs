@@ -9,28 +9,27 @@ namespace BaconBear.Entities.Components
 {
 	public class BearAIComponent : EntityComponent
 	{
-		private Enemy target;
+		private Entity target;
 
-		public override void ReceiveMessage(string name, object value)
+		public override void Load()
 		{
-			if (name == "target")
-			{
-				target = value as Enemy;
-			}
-			else if (name == "remove_target")
-			{
-				target = null;
-			}
+			base.Load();
+
+			((ITargeter)Parent).Targeted += BearAIComponent_Targeted;
+		}
+
+		void BearAIComponent_Targeted(Entity target)
+		{
+			this.target = target;
 		}
 
 		public override void Update(GameTime gameTime)
 		{
 			if (target != null)
 			{
-				Vector2 direction = Vector2.Subtract(Parent.Position, target.Position);
-				direction = Vector2.Negate(Vector2.Normalize(direction));
+				MoveDirection direction = target.Position.X > Parent.Position.X ? MoveDirection.Right : MoveDirection.Left;
 
-				Parent.SendMessage("move", direction * 10);
+				((IMoveable)Parent).Move(direction, 1);
 			}
 		}
 	}

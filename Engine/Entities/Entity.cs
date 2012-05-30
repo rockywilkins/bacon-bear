@@ -102,14 +102,6 @@ namespace Engine.Entities
 			}
 		}
 
-		public virtual void SendMessage(string name, object value)
-		{
-			foreach (EntityComponent component in components)
-			{
-				component.ReceiveMessage(name, value);
-			}
-		}
-
 		#endregion
 	}
 }
