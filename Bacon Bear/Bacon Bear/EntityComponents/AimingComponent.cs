@@ -79,7 +79,7 @@ namespace BaconBear.Entities.Components
 
 			if (Started != null)
 			{
-				Started(location.Position);
+				Started(location.Position, Vector2.Zero);
 			}
 		}
 
@@ -89,7 +89,7 @@ namespace BaconBear.Entities.Components
 
 			if (Stopped != null)
 			{
-				Stopped(location.Position);
+				Stopped(location.Position, aimDifference);
 			}
 		}
 
@@ -101,10 +101,10 @@ namespace BaconBear.Entities.Components
 
 			if (Moved != null)
 			{
-				Moved(location.Position);
+				Moved(location.Position, aimDifference);
 			}
 		}
 	}
 
-	public delegate void AimingEventHandler(Vector2 position);
+	public delegate void AimingEventHandler(Vector2 position, Vector2 difference);
 }
