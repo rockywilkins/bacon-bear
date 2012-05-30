@@ -19,11 +19,6 @@ namespace BaconBear.Screens
 		private Scene scene;
 		private TouchInputHandler touchHandler;
 
-		public Level() : base()
-		{
-
-		}
-
 		public override void Load()
 		{
 			Camera camera = new Camera(800, 480);
@@ -53,6 +48,7 @@ namespace BaconBear.Screens
 
 			Enemy enemy1 = new Enemy(scene);
 			enemy1.Position = new Vector2(400, 200);
+			enemy1.Health = 100;
 			scene.Items.Add(enemy1);
 
 			// Get the dimensions of the world boundary
@@ -80,6 +76,8 @@ namespace BaconBear.Screens
 
 		public override void Update(GameTime gameTime)
 		{
+			scene.PhysicsWorld.Step(Math.Min((float)gameTime.ElapsedGameTime.TotalSeconds, (1f / 30f)));
+
 			List<SceneItem> items = new List<SceneItem>();
 
 			foreach (SceneItem item in scene.Items)
@@ -91,8 +89,6 @@ namespace BaconBear.Screens
 			{
 				item.Update(gameTime);
 			}
-
-			scene.PhysicsWorld.Step(Math.Min((float)gameTime.ElapsedGameTime.TotalSeconds, (1f / 30f)));
 
 			scene.Cameras[0].Update(gameTime);
 		}
