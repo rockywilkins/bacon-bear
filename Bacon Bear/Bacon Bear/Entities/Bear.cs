@@ -1,6 +1,4 @@
 using Microsoft.Xna.Framework;
-using Microsoft.Xna.Framework.Graphics;
-using Engine;
 using Engine.Entities;
 using Engine.Scene;
 using BaconBear.Entities.Components;
@@ -20,6 +18,10 @@ namespace BaconBear.Entities
 
 		public Bear(Scene parent) : base(parent)
 		{
+		}
+
+		public override void Load()
+		{
 			AimingComponent aiming = new AimingComponent();
 			AddComponent(new BearPhysicsComponent());
 			AddComponent(aiming);
@@ -27,6 +29,8 @@ namespace BaconBear.Entities
 			AddComponent(new BearGraphicComponent());
 
 			aiming.Stopped += aiming_Stopped;
+
+			base.Load();
 		}
 
 		public void Collide(IPhysics entity)
