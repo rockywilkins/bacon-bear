@@ -17,10 +17,15 @@ namespace BaconBear.Entities
 		public Enemy(Scene parent) : base(parent)
 		{
 			Alive = true;
+		}
 
+		public override void Load()
+		{
 			AddComponent(new EnemyPhysicsComponent());
 			AddComponent(new EnemyAIComponent());
 			AddComponent(new EnemyGraphicComponent());
+
+			base.Load();
 		}
 
 		public void Collide(IPhysics entity)
