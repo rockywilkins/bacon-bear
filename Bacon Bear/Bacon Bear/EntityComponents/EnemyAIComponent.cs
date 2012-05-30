@@ -2,9 +2,6 @@
 using Microsoft.Xna.Framework;
 using Engine.Entities;
 using Engine.Scene;
-using Engine.Debug;
-using BaconBear.Entities;
-using BaconBear.Entities.Components;
 
 namespace BaconBear.Entities.Components
 {
@@ -12,12 +9,9 @@ namespace BaconBear.Entities.Components
 	{
 		private double updateDuration = 0;
 
-		public override void ReceiveMessage(string name, object value)
+		public override void Load()
 		{
-			if (name == "damage")
-			{
-				TakeDamage((float)value);
-			}
+			((IAlive)Parent).Damaged += TakeDamage;
 		}
 
 		public override void Update(GameTime gameTime)
@@ -31,13 +25,13 @@ namespace BaconBear.Entities.Components
 			{
 				foreach (SceneItem item in Parent.Parent.Items)
 				{
-					if (item.GetType().Name == "Bear")
+					if (item is Bear)
 					{
 						Bear bear = item as Bear;
 						if (Math.Abs(bear.Position.X - Parent.Position.X) < 250)
 						{
-							string direction = bear.Position.X < Parent.Position.X ? "left" : "right";
-							Parent.SendMessage("flee", direction);
+							MoveDirection direction = bear.Position.X < Parent.Position.X ? MoveDirection.Left : MoveDirection.Right;
+							((IMoveable)Parent).Move(direction, 1);
 						}
 					}
 				}
@@ -46,16 +40,18 @@ namespace BaconBear.Entities.Components
 			}
 		}
 
-		private void TakeDamage(float damageAmount)
+		private void TakeDamage(float damageAmount, Entity attacker)
 		{
-			Enemy parent = Parent as Enemy;
-			parent.Health -= damageAmount;
-
-			if (parent.Health <= 0)
+			IAlive parent = Parent as IAlive;
+			if (parent.Health > 0)
 			{
-				parent.Alive = false;
-				parent.SendMessage("death", true);
-				Engine.Debug.Console.Write("dead");
+				parent.Health -= damageAmount;
+
+				if (parent.Health <= 0)
+				{
+					parent.Kill(attacker);
+					Engine.Debug.Console.Write("dead");
+				}
 			}
 		}
 	}

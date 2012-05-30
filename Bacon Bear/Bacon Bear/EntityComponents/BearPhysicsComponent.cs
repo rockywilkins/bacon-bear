@@ -19,66 +19,69 @@ namespace BaconBear.Entities.Components
 		World world;
 		Body body;
 
-		public override void ReceiveMessage(string name, object value)
+		public override void Load()
 		{
-			if (name == "physics_world")
+			base.Load();
+
+			world = Parent.Parent.PhysicsWorld;
+
+			body = BodyFactory.CreateBody(world);
+			body.FixedRotation = true;
+
+			float width = ConvertUnits.ToSimUnits(70);
+			float height = ConvertUnits.ToSimUnits(50);
+
+			Vertices bounds = new Vertices(4);
+			bounds.Add(new Vector2(0, 0));
+			bounds.Add(new Vector2(width, 0));
+			bounds.Add(new Vector2(width, height));
+			bounds.Add(new Vector2(0, height));
+
+			PolygonShape shape = new PolygonShape(bounds, 5f);
+
+			Fixture fixture = body.CreateFixture(shape);
+
+			body.BodyType = BodyType.Dynamic;
+			body.Position = ConvertUnits.ToSimUnits(Parent.Position);
+			body.Restitution = 0.3f;
+			body.UserData = Parent;
+
+			body.OnCollision += body_OnCollision;
+
+			((IMoveable)Parent).Moved += new MoveEventHandler(BearPhysicsComponent_Moved);
+		}
+
+		void BearPhysicsComponent_Moved(MoveDirection direction, float speed)
+		{
+			Vector2 force;
+
+			switch (direction)
 			{
-				world = value as World;
-
-				body = BodyFactory.CreateBody(world);
-				body.FixedRotation = true;
-
-				float width = ConvertUnits.ToSimUnits(70);
-				float height = ConvertUnits.ToSimUnits(50);
-
-				Vertices bounds = new Vertices(4);
-				bounds.Add(new Vector2(0, 0));
-				bounds.Add(new Vector2(width, 0));
-				bounds.Add(new Vector2(width, height));
-				bounds.Add(new Vector2(0, height));
-
-				PolygonShape shape = new PolygonShape(bounds, 5f);
-
-				Fixture fixture = body.CreateFixture(shape);
-
-				body.BodyType = BodyType.Dynamic;
-				body.Position = ConvertUnits.ToSimUnits(Parent.Position);
-				body.Restitution = 0.3f;
-				body.UserData = Parent;
-
-				body.OnCollision += new OnCollisionEventHandler(body_OnCollision);
+				case MoveDirection.Left:
+					force = new Vector2(-10f, 0);
+					break;
+				case MoveDirection.Right:
+					force = new Vector2(10f, 0);
+					break;
+				default:
+					force = Vector2.Zero;
+					break;
 			}
-			else if (name == "screen_touch")
-			{
-				Vector2 touchPosition = (Vector2)value;
-				float x = 0;
-				if (touchPosition.X < Parent.Position.X)
-				{
-					x = -100f;
-					Parent.SendMessage("direction", "left");
-				}
-				else
-				{
-					x = 100f;
-					Parent.SendMessage("direction", "right");
-				}
 
-				body.ApplyForce(new Vector2(x, -300f));
-			}
-			else if (name == "move")
-			{
-				Vector2 direction = (Vector2)value;
-				body.ApplyForce(direction);
-			}
+			body.ApplyForce(force);
 		}
 
 		bool body_OnCollision(Fixture fixtureA, Fixture fixtureB, FarseerPhysics.Dynamics.Contacts.Contact contact)
 		{
-			if (fixtureB.Body.UserData != null && fixtureB.Body.UserData.GetType().Name == "Enemy")
+			if (fixtureB.Body.UserData is IEnemy)
 			{
-				Enemy enemy = fixtureB.Body.UserData as Enemy;
-				enemy.SendMessage("damage", 10f);
-				return false;
+				IPhysics enemy = fixtureB.Body.UserData as IPhysics;
+				if (enemy != null)
+				{
+					((IPhysics) Parent).Collide(enemy);
+					((IAlive) enemy).TakeDamage(10, Parent);
+					return false;
+				}
 			}
 
 			return true;

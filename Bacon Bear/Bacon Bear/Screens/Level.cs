@@ -19,11 +19,6 @@ namespace BaconBear.Screens
 		private Scene scene;
 		private TouchInputHandler touchHandler;
 
-		public Level() : base()
-		{
-
-		}
-
 		public override void Load()
 		{
 			Camera camera = new Camera(800, 480);
@@ -31,8 +26,9 @@ namespace BaconBear.Screens
 
 			scene = new Scene();
 			scene.Cameras.Add(camera);
-			scene.PrimitiveBatch = new PrimitiveBatch(Parent.Game.GraphicsDevice);
-			scene.PhysicsWorld = new World(new Vector2(0, 25));
+			scene.PrimitiveBatch    = new PrimitiveBatch(Parent.Game.GraphicsDevice);
+			scene.PhysicsWorld      = new World(new Vector2(0, 25));
+			scene.TouchInputHandler = new TouchInputHandler(scene.Cameras[0]);
 
 			// Create entities
 			Sky sky = new Sky(scene);
@@ -52,9 +48,8 @@ namespace BaconBear.Screens
 
 			Enemy enemy1 = new Enemy(scene);
 			enemy1.Position = new Vector2(400, 200);
+			enemy1.Health = 100;
 			scene.Items.Add(enemy1);
-
-			touchHandler = new TouchInputHandler(scene.Cameras[0]);
 
 			// Get the dimensions of the world boundary
 			float width = ConvertUnits.ToSimUnits(1600);
@@ -72,11 +67,6 @@ namespace BaconBear.Screens
 			boundary.CollisionCategories = Category.All;
 			boundary.CollidesWith = Category.All;
 
-			ground.SendMessage("physics_world", scene.PhysicsWorld);
-			baconBear.SendMessage("touch_input", touchHandler);
-			baconBear.SendMessage("physics_world", scene.PhysicsWorld);
-			enemy1.SendMessage("physics_world", scene.PhysicsWorld);
-
 			sky.Load();
 			background.Load();
 			ground.Load();
@@ -86,6 +76,8 @@ namespace BaconBear.Screens
 
 		public override void Update(GameTime gameTime)
 		{
+			scene.PhysicsWorld.Step(Math.Min((float)gameTime.ElapsedGameTime.TotalSeconds, (1f / 30f)));
+
 			List<SceneItem> items = new List<SceneItem>();
 
 			foreach (SceneItem item in scene.Items)
@@ -97,8 +89,6 @@ namespace BaconBear.Screens
 			{
 				item.Update(gameTime);
 			}
-
-			scene.PhysicsWorld.Step(Math.Min((float)gameTime.ElapsedGameTime.TotalSeconds, (1f / 30f)));
 
 			scene.Cameras[0].Update(gameTime);
 		}
