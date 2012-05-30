@@ -31,8 +31,9 @@ namespace BaconBear.Screens
 
 			scene = new Scene();
 			scene.Cameras.Add(camera);
-			scene.PrimitiveBatch = new PrimitiveBatch(Parent.Game.GraphicsDevice);
-			scene.PhysicsWorld = new World(new Vector2(0, 25));
+			scene.PrimitiveBatch    = new PrimitiveBatch(Parent.Game.GraphicsDevice);
+			scene.PhysicsWorld      = new World(new Vector2(0, 25));
+			scene.TouchInputHandler = new TouchInputHandler(scene.Cameras[0]);
 
 			// Create entities
 			Sky sky = new Sky(scene);
@@ -54,8 +55,6 @@ namespace BaconBear.Screens
 			enemy1.Position = new Vector2(400, 200);
 			scene.Items.Add(enemy1);
 
-			touchHandler = new TouchInputHandler(scene.Cameras[0]);
-
 			// Get the dimensions of the world boundary
 			float width = ConvertUnits.ToSimUnits(1600);
 			float height = ConvertUnits.ToSimUnits(480);
@@ -71,11 +70,6 @@ namespace BaconBear.Screens
 			Body boundary = BodyFactory.CreateLoopShape(scene.PhysicsWorld, bounds);
 			boundary.CollisionCategories = Category.All;
 			boundary.CollidesWith = Category.All;
-
-			ground.SendMessage("physics_world", scene.PhysicsWorld);
-			baconBear.SendMessage("touch_input", touchHandler);
-			baconBear.SendMessage("physics_world", scene.PhysicsWorld);
-			enemy1.SendMessage("physics_world", scene.PhysicsWorld);
 
 			sky.Load();
 			background.Load();

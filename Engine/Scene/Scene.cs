@@ -1,4 +1,5 @@
 using System.Collections.Generic;
+using Engine.Input;
 using FarseerPhysics.Dynamics;
 using Engine.Graphics;
 
@@ -31,6 +32,8 @@ namespace Engine.Scene
 		public PrimitiveBatch PrimitiveBatch { get; set; }
 
 		public World PhysicsWorld { get; set; }
+
+		public TouchInputHandler TouchInputHandler { get; set; } 
 
 		#endregion
 	}

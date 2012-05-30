@@ -15,54 +15,42 @@ namespace BaconBear.Entities.Components
 		World world;
 		Body body;
 
-		public override void ReceiveMessage(string name, object value)
+		public override void Load()
 		{
-			if (name == "physics_world")
-			{
-				world = value as World;
+			base.Load();
 
-				body = BodyFactory.CreateBody(world);
-				body.FixedRotation = true;
+			world = Parent.Parent.PhysicsWorld;
 
-				float width = ConvertUnits.ToSimUnits(25);
-				float height = ConvertUnits.ToSimUnits(50);
+			body = BodyFactory.CreateBody(world);
+			body.FixedRotation = true;
 
-				Vertices bounds = new Vertices(4);
-				bounds.Add(new Vector2(0, 0));
-				bounds.Add(new Vector2(width, 0));
-				bounds.Add(new Vector2(width, height));
-				bounds.Add(new Vector2(0, height));
+			float width = ConvertUnits.ToSimUnits(25);
+			float height = ConvertUnits.ToSimUnits(50);
 
-				PolygonShape shape = new PolygonShape(bounds, 5f);
+			Vertices bounds = new Vertices(4);
+			bounds.Add(new Vector2(0, 0));
+			bounds.Add(new Vector2(width, 0));
+			bounds.Add(new Vector2(width, height));
+			bounds.Add(new Vector2(0, height));
 
-				Fixture fixture = body.CreateFixture(shape);
+			PolygonShape shape = new PolygonShape(bounds, 5f);
 
-				body.BodyType = BodyType.Dynamic;
-				body.Position = ConvertUnits.ToSimUnits(Parent.Position);
-				body.Restitution = 0.3f;
-				body.UserData = Parent;
+			Fixture fixture = body.CreateFixture(shape);
 
-				//body.OnCollision += new OnCollisionEventHandler(body_OnCollision);
-			}
-			else if (name == "flee")
-			{
-				string direction = value as string;
-				float x = 0;
-				if (direction == "left")
-				{
-					x = 50;
-				}
-				else
-				{
-					x = -50;
-				}
-				body.ApplyForce(new Vector2(x, -150));
-			}
-			else if (name == "death")
-			{
-				body.Rotation = 90f;
-				body.FixedRotation = false;
-			}
+			body.BodyType = BodyType.Dynamic;
+			body.Position = ConvertUnits.ToSimUnits(Parent.Position);
+			body.Restitution = 0.3f;
+			body.UserData = Parent;
+
+			//body.OnCollision += new OnCollisionEventHandler(body_OnCollision);
+
+			((IAlive)Parent).Died += EnemyPhysicsComponent_Died;
+		}
+
+		void EnemyPhysicsComponent_Died(Entity killer)
+		{
+			body.Rotation = 90f;
+			body.FixedRotation = false;
 		}
 
 		bool body_OnCollision(Fixture fixtureA, Fixture fixtureB, FarseerPhysics.Dynamics.Contacts.Contact contact)

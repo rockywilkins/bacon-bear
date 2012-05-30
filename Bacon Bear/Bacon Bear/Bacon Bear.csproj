@@ -80,7 +80,7 @@
     <Compile Include="EntityComponents\EnemyGraphicComponent.cs" />
     <Compile Include="Entities\Ground.cs" />
     <Compile Include="EntityComponents\BearGraphicComponent.cs" />
-    <Compile Include="EntityComponents\BearAimingComponent.cs" />
+    <Compile Include="EntityComponents\AimingComponent.cs" />
     <Compile Include="EntityComponents\BearPhysicsComponent.cs" />
     <Compile Include="EntityComponents\EnemyPhysicsComponent.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

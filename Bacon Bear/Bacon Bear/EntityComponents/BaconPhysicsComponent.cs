@@ -1,16 +1,11 @@
 using Microsoft.Xna.Framework;
-using Microsoft.Xna.Framework.Graphics;
-using Microsoft.Xna.Framework.Input.Touch;
 using FarseerPhysics.Common;
 using FarseerPhysics.Collision.Shapes;
 using FarseerPhysics.Dynamics;
 using FarseerPhysics.Factories;
 using Engine.Entities;
-using Engine.Input;
 using Engine.Physics;
 using Engine.Scene;
-using BaconBear.Entities;
-using BaconBear.Entities.Components;
 
 namespace BaconBear.Entities.Components
 {
@@ -19,39 +14,33 @@ namespace BaconBear.Entities.Components
 		World world;
 		Body body;
 
-		public override void ReceiveMessage(string name, object value)
+		public override void Load()
 		{
-			if (name == "physics_world")
-			{
-				world = value as World;
+			base.Load();
 
-				body = BodyFactory.CreateBody(world);
+			world = Parent.Parent.PhysicsWorld;
 
-				float width = ConvertUnits.ToSimUnits(10);
-				float height = ConvertUnits.ToSimUnits(25);
+			body = BodyFactory.CreateBody(world);
 
-				Vertices bounds = new Vertices(4);
-				bounds.Add(new Vector2(0, 0));
-				bounds.Add(new Vector2(width, 0));
-				bounds.Add(new Vector2(width, height));
-				bounds.Add(new Vector2(0, height));
+			float width = ConvertUnits.ToSimUnits(10);
+			float height = ConvertUnits.ToSimUnits(25);
 
-				PolygonShape shape = new PolygonShape(bounds, 5f);
+			Vertices bounds = new Vertices(4);
+			bounds.Add(new Vector2(0, 0));
+			bounds.Add(new Vector2(width, 0));
+			bounds.Add(new Vector2(width, height));
+			bounds.Add(new Vector2(0, height));
 
-				Fixture fixture = body.CreateFixture(shape);
+			PolygonShape shape = new PolygonShape(bounds, 5f);
 
-				body.BodyType = BodyType.Dynamic;
-				body.Position = ConvertUnits.ToSimUnits(Parent.Position);
-				body.Restitution = 0f;
-				body.UserData = Parent;
+			body.CreateFixture(shape);
 
-				body.OnCollision += new OnCollisionEventHandler(body_OnCollision);
-			}
-			else if (name == "physics_impulse")
-			{
-				Vector2 direction = (Vector2)value;
-				body.ApplyForce(direction);
-			}
+			body.BodyType = BodyType.Dynamic;
+			body.Position = ConvertUnits.ToSimUnits(Parent.Position);
+			body.Restitution = 0f;
+			body.UserData = Parent;
+
+			body.OnCollision += body_OnCollision;
 		}
 
 		public override void Unload()
@@ -63,14 +52,13 @@ namespace BaconBear.Entities.Components
 
 		bool body_OnCollision(Fixture fixtureA, Fixture fixtureB, FarseerPhysics.Dynamics.Contacts.Contact contact)
 		{
-			if (fixtureB.Body.UserData != null && fixtureB.Body.UserData.GetType().Name == "Enemy")
+			if (fixtureB.Body.UserData is IEnemy)
 			{
 				foreach (SceneItem item in Parent.Parent.Items)
 				{
-					if (item.GetType().Name == "Bear")
+					if (item is Bear)
 					{
-						Bear bear = item as Bear;
-						bear.SendMessage("target", fixtureB.Body.UserData);
+						((ITargeter)item).SetTarget(fixtureB.Body.UserData as Entity);
 					}
 				}
 
@@ -85,6 +73,7 @@ namespace BaconBear.Entities.Components
 		{
 			Parent.Position = ConvertUnits.ToDisplayUnits(body.Position);
 			Parent.Rotation = body.Rotation;
+			Parent.Velocity = body.LinearVelocity;
 		}
 	}
 }
