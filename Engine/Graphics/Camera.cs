@@ -19,6 +19,8 @@ namespace Engine.Graphics
 		private int width;
 		private int height;
 
+		private List<SceneItem> visibleItems;
+
 		#endregion
 
 
@@ -107,7 +109,7 @@ namespace Engine.Graphics
 
 		public void Draw(IEnumerable<SceneItem> items, GameTime gameTime, SpriteBatch spriteBatch)
 		{
-			List<SceneItem> visibleItems = GetVisibleItems(items);
+			visibleItems = GetVisibleItems(items);
 
 			foreach (SceneItem item in visibleItems)
 			{
