@@ -10,7 +10,7 @@ using BaconBear.Entities.Components;
 
 namespace BaconBear.Entities.Components
 {
-	public class EnemyPhysicsComponent : EntityComponent
+	public class AlienPhysicsComponent : EntityComponent
 	{
 		World world;
 		Body body;
@@ -44,13 +44,30 @@ namespace BaconBear.Entities.Components
 
 			//body.OnCollision += new OnCollisionEventHandler(body_OnCollision);
 
-			((IAlive)Parent).Died += EnemyPhysicsComponent_Died;
+			((IAlive)Parent).Died += AlienPhysicsComponent_Died;
+			((IMoveable)Parent).Moved += AlienPhysicsComponent_Moved;
 		}
 
-		void EnemyPhysicsComponent_Died(Entity killer)
+		void AlienPhysicsComponent_Died(Entity killer)
 		{
 			body.Rotation = 90f;
 			body.FixedRotation = false;
+		}
+
+		private void AlienPhysicsComponent_Moved(MoveDirection direction, float speed)
+		{
+			switch (direction)
+			{
+				case MoveDirection.Left:
+					body.ApplyLinearImpulse(new Vector2(-0.1f * speed, 0));
+					break;
+				case MoveDirection.Right:
+					body.ApplyLinearImpulse(new Vector2(0.1f * speed, 0));
+					break;
+				case MoveDirection.Up:
+					body.ApplyLinearImpulse(new Vector2(0, -0.3f * speed));
+					break;
+			}
 		}
 
 		bool body_OnCollision(Fixture fixtureA, Fixture fixtureB, FarseerPhysics.Dynamics.Contacts.Contact contact)
@@ -62,6 +79,7 @@ namespace BaconBear.Entities.Components
 		{
 			Parent.Position = ConvertUnits.ToDisplayUnits(body.Position);
 			Parent.Rotation = body.Rotation;
+			Parent.Velocity = body.LinearVelocity;
 		}
 	}
 }

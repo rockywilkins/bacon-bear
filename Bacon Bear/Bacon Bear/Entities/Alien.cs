@@ -4,26 +4,41 @@ using BaconBear.Entities.Components;
 
 namespace BaconBear.Entities
 {
-	public class Enemy : Entity, IAlive, IPhysics, IEnemy, IMoveable
+	public class Alien : Entity, IAlive, IPhysics, IEnemy, IMoveable, ITargeter
 	{
+		private Entity target;
+
 		public float Health { get; set; }
 		public bool Alive { get; set; }
+		public Entity Target
+		{
+			get { return target; }
+			set
+			{
+				target = value;
+				if (Targeted != null)
+				{
+					Targeted(value);
+				}
+			}
+		}
 
 		public event CollisionEventHandler Collided;
 		public event DamageEventHandler Damaged;
 		public event DeathEventHandler Died;
 		public event MoveEventHandler Moved;
+		public event TargetEventHandler Targeted;
 
-		public Enemy(Scene parent) : base(parent)
+		public Alien(Scene parent) : base(parent)
 		{
 			Alive = true;
 		}
 
 		public override void Load()
 		{
-			AddComponent(new EnemyPhysicsComponent());
-			AddComponent(new EnemyAIComponent());
-			AddComponent(new EnemyGraphicComponent());
+			AddComponent(new AlienPhysicsComponent());
+			AddComponent(new AlienAIComponent());
+			AddComponent(new AlienGraphicComponent());
 
 			base.Load();
 		}
@@ -48,6 +63,8 @@ namespace BaconBear.Entities
 		{
 			if (Died != null)
 			{
+				Alive = false;
+				Health = 0;
 				Died(killer);
 			}
 		}
