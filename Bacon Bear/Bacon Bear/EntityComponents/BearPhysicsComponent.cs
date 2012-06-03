@@ -64,10 +64,10 @@ namespace BaconBear.Entities.Components
 			switch (direction)
 			{
 				case MoveDirection.Left:
-					velocityX = -5.0f;
+					velocityX = -6.0f;
 					break;
 				case MoveDirection.Right:
-					velocityX = 5.0f;
+					velocityX = 6.0f;
 					break;
 				default:
 					velocityX = 0;
