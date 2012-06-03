@@ -29,6 +29,7 @@ namespace BaconBear.Entities.Components
 
 			updateTimer = new Timer(500);
 			idleTimer = new Timer(1000);
+			attackTimer = new Timer(2000);
 		}
 
 		public override void Update(GameTime gameTime)
