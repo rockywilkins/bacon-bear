@@ -72,6 +72,7 @@
     <Compile Include="Graphics\Camera.cs" />
     <Compile Include="Graphics\PrimitiveBatch.cs" />
     <Compile Include="Graphics\Sprite.cs" />
+    <Compile Include="Helpers\Timer.cs" />
     <Compile Include="Input\TouchInputHandler.cs" />
     <Compile Include="Physics\ConvertUnits.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -80,9 +81,7 @@
     <Compile Include="Screens\Screen.cs" />
     <Compile Include="UI\TextRendering.cs" />
   </ItemGroup>
-  <ItemGroup>
-    <Folder Include="Helpers\" />
-  </ItemGroup>
+  <ItemGroup />
   <ItemGroup>
     <Content Include="Physics\FarseerPhysicsXNA.dll" />
   </ItemGroup>
