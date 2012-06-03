@@ -5,8 +5,6 @@ using FarseerPhysics.Dynamics;
 using FarseerPhysics.Factories;
 using Engine.Entities;
 using Engine.Physics;
-using BaconBear.Entities;
-using BaconBear.Entities.Components;
 
 namespace BaconBear.Entities.Components
 {

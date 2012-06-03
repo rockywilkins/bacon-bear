@@ -1,10 +1,7 @@
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
-using FarseerPhysics.Dynamics;
-using FarseerPhysics.Factories;
 using Engine.Entities;
 using Engine.Graphics;
-using Engine.Physics;
 using Engine.Scene;
 
 using Engine.Debug;

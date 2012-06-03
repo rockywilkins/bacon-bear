@@ -1,9 +1,5 @@
-﻿using System;
-using Microsoft.Xna.Framework;
+﻿using Microsoft.Xna.Framework;
 using Engine.Entities;
-using Engine.Scene;
-using BaconBear.Entities;
-using BaconBear.Entities.Components;
 
 namespace BaconBear.Entities.Components
 {
