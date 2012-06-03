@@ -7,13 +7,13 @@ using Engine.Graphics;
 
 namespace BaconBear.Entities.Components
 {
-	public class EnemyGraphicComponent : EntityComponent
+	public class AlienGraphicComponent : EntityComponent
 	{
 		private Texture2D texture;
 
 		public override void Load()
 		{
-			texture = Engine.Engine.Content.Load<Texture2D>("Textures/Enemy");
+			texture = Engine.Engine.Content.Load<Texture2D>("Textures/Alien");
 
 			base.Load();
 		}

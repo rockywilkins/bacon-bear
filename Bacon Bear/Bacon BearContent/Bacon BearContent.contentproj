@@ -57,8 +57,8 @@
     <Folder Include="obj\" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Textures\Enemy.png">
-      <Name>Enemy</Name>
+    <Compile Include="Textures\Alien.png">
+      <Name>Alien</Name>
       <Importer>TextureImporter</Importer>
       <Processor>TextureProcessor</Processor>
     </Compile>

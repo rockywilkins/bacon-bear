@@ -46,7 +46,7 @@ namespace BaconBear.Screens
 			baconBear.Position = new Vector2(200, 200);
 			scene.Items.Add(baconBear);
 
-			Enemy enemy1 = new Enemy(scene);
+			Alien enemy1 = new Alien(scene);
 			enemy1.Position = new Vector2(400, 200);
 			enemy1.Health = 100;
 			scene.Items.Add(enemy1);
