@@ -27,6 +27,18 @@ namespace BaconBear.Entities.Components
 		void Targeted(Entity target)
 		{
 			this.target = target;
+
+			if (target != null)
+			{
+				((IAlive) target).Died += TargetDied;
+			}
+		}
+
+		void TargetDied(Entity killer)
+		{
+			((IAlive)target).Died -= TargetDied;
+			target = null;
+			((ITargeter) Parent).Target = null;
 		}
 	}
 }
