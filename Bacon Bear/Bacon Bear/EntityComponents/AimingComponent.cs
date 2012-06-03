@@ -4,8 +4,6 @@ using Microsoft.Xna.Framework.Input.Touch;
 using Engine.Entities;
 using Engine.Graphics;
 using Engine.Input;
-using BaconBear.Entities;
-using BaconBear.Entities.Components;
 
 namespace BaconBear.Entities.Components
 {

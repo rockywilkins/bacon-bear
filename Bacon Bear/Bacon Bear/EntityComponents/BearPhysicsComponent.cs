@@ -1,16 +1,10 @@
 using Microsoft.Xna.Framework;
-using Microsoft.Xna.Framework.Graphics;
-using Microsoft.Xna.Framework.Input.Touch;
 using FarseerPhysics.Common;
 using FarseerPhysics.Collision.Shapes;
 using FarseerPhysics.Dynamics;
 using FarseerPhysics.Factories;
 using Engine.Entities;
-using Engine.Input;
 using Engine.Physics;
-using BaconBear.Entities;
-using BaconBear.Entities.Components;
-
 
 namespace BaconBear.Entities.Components
 {

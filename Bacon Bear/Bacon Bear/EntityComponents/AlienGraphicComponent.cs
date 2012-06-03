@@ -1,7 +1,5 @@
 ﻿using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
-using BaconBear.Entities;
-using BaconBear.Entities.Components;
 using Engine.Entities;
 using Engine.Graphics;
 
