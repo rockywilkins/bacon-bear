@@ -48,6 +48,13 @@ namespace BaconBear.Entities.Components
 			((IMoveable)Parent).Moved += AlienPhysicsComponent_Moved;
 		}
 
+		public override void Unload()
+		{
+			body.Dispose();
+
+			base.Unload();
+		}
+
 		void AlienPhysicsComponent_Died(Entity killer)
 		{
 			body.Rotation = 90f;

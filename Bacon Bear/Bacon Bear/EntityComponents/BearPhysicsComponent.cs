@@ -51,6 +51,13 @@ namespace BaconBear.Entities.Components
 			((IMoveable)Parent).Moved += new MoveEventHandler(BearPhysicsComponent_Moved);
 		}
 
+		public override void Unload()
+		{
+			body.Dispose();
+
+			base.Unload();
+		}
+
 		void BearPhysicsComponent_Moved(MoveDirection direction, float speed)
 		{
 			Vector2 force;
