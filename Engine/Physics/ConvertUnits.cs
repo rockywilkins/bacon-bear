@@ -7,7 +7,7 @@ namespace Engine.Physics
     /// </summary>
     public static class ConvertUnits
     {
-        private static float _displayUnitsToSimUnitsRatio = 100f;
+        private static float _displayUnitsToSimUnitsRatio = 35f;
         private static float _simUnitsToDisplayUnitsRatio = 1 / _displayUnitsToSimUnitsRatio;
 
         public static void SetDisplayUnitToSimUnitRatio(float displayUnitsPerSimUnit)
