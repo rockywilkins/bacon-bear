@@ -73,6 +73,7 @@
     <Compile Include="Graphics\PrimitiveBatch.cs" />
     <Compile Include="Graphics\Sprite.cs" />
     <Compile Include="Helpers\Timer.cs" />
+    <Compile Include="Helpers\TimerManager.cs" />
     <Compile Include="Input\TouchInputHandler.cs" />
     <Compile Include="Physics\ConvertUnits.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

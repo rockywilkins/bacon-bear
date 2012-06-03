@@ -1,4 +1,5 @@
 using System.Collections.Generic;
+using Engine.Helpers;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Content;
@@ -57,6 +58,8 @@ namespace Engine
 
 		public void Update(GameTime gameTime)
 		{
+			TimerManager.Update(gameTime);
+
 			foreach (Screen screen in screens)
 			{
 				screen.Update(gameTime);
