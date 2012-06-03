@@ -18,6 +18,7 @@ namespace BaconBear.Entities.Components
 		public override void Load()
 		{
 			((IAlive)Parent).Damaged += TakeDamage;
+			((IAlive)Parent).Died += Died;
 
 			foreach (SceneItem item in Parent.Parent.Items)
 			{
@@ -51,7 +52,7 @@ namespace BaconBear.Entities.Components
 				{
 					state = EntityState.Flee;
 				}
-				else if (distance < 200)
+				else if (distance < 500)
 				{
 					state = EntityState.Attack;
 				}
@@ -83,7 +84,8 @@ namespace BaconBear.Entities.Components
 			}
 
 			((IMoveable)Parent).Move(direction, 0.7f);
-			Engine.Debug.Console.Write("Idle");
+
+			Engine.Debug.Console.Write("alienAI", "Idle");
 		}
 
 		private void Attack(GameTime gameTime)
@@ -92,12 +94,14 @@ namespace BaconBear.Entities.Components
 
 			if (attackTimer.Complete)
 			{
-				// Jump and do damage to target
-				((IMoveable)Parent).Move(MoveDirection.Up, 1f);
-				ITargeter parent = (ITargeter)Parent;
-				((IAlive)parent.Target).TakeDamage(1, Parent);
+				if (((ITargeter)Parent).Target != null)
+				{
+					// Jump and do damage to target
+					((IMoveable)Parent).Move(MoveDirection.Up, 1f);
+					//target.TakeDamage(1, Parent);
 
-				Engine.Debug.Console.Write("Attacking");
+					Engine.Debug.Console.Write("alienAI", "Attacking");
+				}
 
 				attackTimer.Reset();
 			}
@@ -110,7 +114,7 @@ namespace BaconBear.Entities.Components
 			MoveDirection direction = target.Position.X > Parent.Position.X ? MoveDirection.Left : MoveDirection.Right;
 			((IMoveable)Parent).Move(direction, 1);
 
-			Engine.Debug.Console.Write("Fleeing");
+			Engine.Debug.Console.Write("alienAI", "Fleeing");
 		}
 
 		private void TakeDamage(float damageAmount, Entity attacker)
@@ -125,6 +129,11 @@ namespace BaconBear.Entities.Components
 					parent.Kill(attacker);
 				}
 			}
+		}
+
+		private void Died(Entity killer)
+		{
+			Engine.Debug.Console.Write("alienAI", "Dead");
 		}
 
 		public enum EntityState
