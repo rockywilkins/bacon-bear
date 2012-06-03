@@ -58,17 +58,17 @@ namespace BaconBear.Entities.Components
 			switch (direction)
 			{
 				case MoveDirection.Left:
-					force = new Vector2(-10f, 0);
+					force = new Vector2(-0.3f, 0);
 					break;
 				case MoveDirection.Right:
-					force = new Vector2(10f, 0);
+					force = new Vector2(0.3f, 0);
 					break;
 				default:
 					force = Vector2.Zero;
 					break;
 			}
 
-			body.ApplyForce(force);
+			body.ApplyLinearImpulse(force);
 		}
 
 		bool body_OnCollision(Fixture fixtureA, Fixture fixtureB, FarseerPhysics.Dynamics.Contacts.Contact contact)
