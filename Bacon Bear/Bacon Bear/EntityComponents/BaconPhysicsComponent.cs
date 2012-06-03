@@ -59,12 +59,13 @@ namespace BaconBear.Entities.Components
 				{
 					if (item is Bear)
 					{
-						((ITargeter)item).SetTarget(fixtureB.Body.UserData as Entity);
+						((ITargeter)item).Target = fixtureB.Body.UserData as Entity;
 					}
 				}
 
 				Parent.Unload();
 				Parent.Parent.Items.Remove(Parent);
+				return false;
 			}
 
 			return true;

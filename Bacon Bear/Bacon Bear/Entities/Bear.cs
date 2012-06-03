@@ -7,13 +7,23 @@ namespace BaconBear.Entities
 {
 	public class Bear : Entity, IPhysics, ITargeter, IMoveable
 	{
+		private Entity target;
+
 		public event CollisionEventHandler Collided;
 		public event TargetEventHandler Targeted;
 		public event MoveEventHandler Moved;
 
 		public Entity Target
 		{
-			get { throw new System.NotImplementedException(); }
+			get { return target; }
+			set
+			{
+				target = value;
+				if (Targeted != null)
+				{
+					Targeted(value);
+				}
+			}
 		}
 
 		public Bear(Scene parent) : base(parent)
@@ -41,14 +51,6 @@ namespace BaconBear.Entities
 			}
 		}
 
-		public void SetTarget(Entity target)
-		{
-			if (Targeted != null)
-			{
-				Targeted(target);
-			}
-		}
-
 		public void Move(MoveDirection direction, float speed)
 		{
 			if (Moved != null)
@@ -62,7 +64,7 @@ namespace BaconBear.Entities
 			// Create bacon and fire it
 			Bacon bacon = new Bacon(Parent);
 			bacon.Position = Vector2.Add(Position, new Vector2(0, -50));
-			bacon.Velocity = Vector2.Negate(difference) / 4;
+			bacon.Velocity = Vector2.Negate(difference) / 10;
 			bacon.Load();
 
 			//bacon.SendMessage("physics_impulse", Vector2.Negate(aimDifference) / 4);
