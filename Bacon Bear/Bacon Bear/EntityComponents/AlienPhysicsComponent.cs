@@ -70,7 +70,7 @@ namespace BaconBear.Entities.Components
 					body.LinearVelocity = new Vector2(5f * speed, body.LinearVelocity.Y);
 					break;
 				case MoveDirection.Up:
-					body.ApplyLinearImpulse(new Vector2(0, -15f * speed));
+					body.ApplyLinearImpulse(new Vector2(0, -25f * speed));
 					break;
 			}
 		}
