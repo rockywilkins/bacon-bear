@@ -11,12 +11,7 @@ namespace BaconBear.Entities.Components
 		{
 			base.Load();
 
-			((ITargeter)Parent).Targeted += BearAIComponent_Targeted;
-		}
-
-		void BearAIComponent_Targeted(Entity target)
-		{
-			this.target = target;
+			((ITargeter)Parent).Targeted += Targeted;
 		}
 
 		public override void Update(GameTime gameTime)
@@ -27,6 +22,11 @@ namespace BaconBear.Entities.Components
 
 				((IMoveable)Parent).Move(direction, 1);
 			}
+		}
+
+		void Targeted(Entity target)
+		{
+			this.target = target;
 		}
 	}
 }
