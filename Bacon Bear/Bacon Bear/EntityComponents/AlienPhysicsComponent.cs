@@ -64,13 +64,13 @@ namespace BaconBear.Entities.Components
 			switch (direction)
 			{
 				case MoveDirection.Left:
-					body.ApplyLinearImpulse(new Vector2(-0.1f * speed, 0));
+					body.LinearVelocity = new Vector2(-5f * speed, body.LinearVelocity.Y);
 					break;
 				case MoveDirection.Right:
-					body.ApplyLinearImpulse(new Vector2(0.1f * speed, 0));
+					body.LinearVelocity = new Vector2(5f * speed, body.LinearVelocity.Y);
 					break;
 				case MoveDirection.Up:
-					body.ApplyLinearImpulse(new Vector2(0, -0.3f * speed));
+					body.ApplyLinearImpulse(new Vector2(0, -15f * speed));
 					break;
 			}
 		}
