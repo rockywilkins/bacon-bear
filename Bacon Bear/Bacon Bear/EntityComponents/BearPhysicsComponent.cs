@@ -42,7 +42,7 @@ namespace BaconBear.Entities.Components
 
 			body.OnCollision += body_OnCollision;
 
-			((IMoveable)Parent).Moved += new MoveEventHandler(BearPhysicsComponent_Moved);
+			((IMoveable)Parent).Moved += Moved;
 		}
 
 		public override void Unload()
@@ -52,7 +52,12 @@ namespace BaconBear.Entities.Components
 			base.Unload();
 		}
 
-		void BearPhysicsComponent_Moved(MoveDirection direction, float speed)
+		public override void Update(GameTime gameTime)
+		{
+			Parent.Position = ConvertUnits.ToDisplayUnits(body.Position);
+		}
+
+		private void Moved(MoveDirection direction, float speed)
 		{
 			Vector2 force;
 
@@ -86,11 +91,6 @@ namespace BaconBear.Entities.Components
 			}
 
 			return true;
-		}
-
-		public override void Update(GameTime gameTime)
-		{
-			Parent.Position = ConvertUnits.ToDisplayUnits(body.Position);
 		}
 	}
 }
