@@ -59,22 +59,22 @@ namespace BaconBear.Entities.Components
 
 		private void Moved(MoveDirection direction, float speed)
 		{
-			Vector2 force;
+			float velocityX;
 
 			switch (direction)
 			{
 				case MoveDirection.Left:
-					force = new Vector2(-0.3f, 0);
+					velocityX = -5.0f;
 					break;
 				case MoveDirection.Right:
-					force = new Vector2(0.3f, 0);
+					velocityX = 5.0f;
 					break;
 				default:
-					force = Vector2.Zero;
+					velocityX = 0;
 					break;
 			}
 
-			body.ApplyLinearImpulse(force);
+			body.LinearVelocity = new Vector2(velocityX, body.LinearVelocity.Y);
 		}
 
 		bool body_OnCollision(Fixture fixtureA, Fixture fixtureB, FarseerPhysics.Dynamics.Contacts.Contact contact)
